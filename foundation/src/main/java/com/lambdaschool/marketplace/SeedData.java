@@ -88,39 +88,5 @@ public class SeedData implements CommandLineRunner {
     User u5 = new User("password", "misskitty@school.lambda");
     u5.getRoles().add(new UserRoles(u5, r2));
     userService.save(u5);
-
-    if (false) {
-      // using JavaFaker create a bunch of regular users
-      // https://www.baeldung.com/java-faker
-      // https://www.baeldung.com/regular-expressions-java
-
-      FakeValuesService fakeValuesService = new FakeValuesService(
-        new Locale("en-US"),
-        new RandomService()
-      );
-      Faker nameFaker = new Faker(new Locale("en-US"));
-
-      for (int i = 0; i < 25; i++) {
-        new User();
-        User fakeUser;
-
-        fakeUser =
-          new User(
-            nameFaker.name().username(),
-            "password",
-            nameFaker.internet().emailAddress()
-          );
-        fakeUser.getRoles().add(new UserRoles(fakeUser, r2));
-        fakeUser
-          .getUserEmails()
-          .add(
-            new UserEmail(
-              fakeUser,
-              fakeValuesService.bothify("????##@gmail.com")
-            )
-          );
-        userService.save(fakeUser);
-      }
-    }
   }
 }

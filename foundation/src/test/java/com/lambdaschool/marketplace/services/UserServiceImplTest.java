@@ -6,8 +6,8 @@ import com.lambdaschool.marketplace.UserModelApplication;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
+import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.models.UserRoles;
-import com.lambdaschool.marketplace.models.Useremail;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -81,11 +81,11 @@ public class UserServiceImplTest {
   @Test
   public void F_save() {
     Role r2 = new Role("user");
-    r2.setRoleid(2);
+    r2.setRoleId(2);
 
     User u2 = new User("tiger", "ILuvMath!", "tiger@school.lambda");
     u2.getRoles().add(new UserRoles(u2, r2));
-    u2.getUseremails().add(new Useremail(u2, "tiger@tiger.local"));
+    u2.getUserEmails().add(new UserEmail(u2, "tiger@tiger.local"));
 
     User saveU2 = userService.save(u2);
 
@@ -95,7 +95,7 @@ public class UserServiceImplTest {
 
     assertEquals(
       "tiger@tiger.local",
-      saveU2.getUseremails().get(0).getUseremail()
+      saveU2.getUserEmails().get(0).getUserEmail()
     );
   }
 
@@ -104,14 +104,14 @@ public class UserServiceImplTest {
   @Test
   public void G_update() {
     Role r2 = new Role("user");
-    r2.setRoleid(2);
+    r2.setRoleId(2);
 
     User u2 = new User("cinnamon", "password", "cinnamon@school.lambda");
     u2.getRoles().add(new UserRoles(u2, r2));
 
-    u2.getUseremails().add(new Useremail(u2, "cinnamon@mymail.thump"));
-    u2.getUseremails().add(new Useremail(u2, "hops@mymail.thump"));
-    u2.getUseremails().add(new Useremail(u2, "bunny@email.thump"));
+    u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
+    u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));
+    u2.getUserEmails().add(new UserEmail(u2, "bunny@email.thump"));
 
     User updatedu2 = userService.update(u2, 7);
 
@@ -119,10 +119,10 @@ public class UserServiceImplTest {
     System.out.println(updatedu2);
     System.out.println("*** DATA ***");
 
-    int checking = updatedu2.getUseremails().size() - 1;
+    int checking = updatedu2.getUserEmails().size() - 1;
     assertEquals(
       "bunny@email.thump",
-      updatedu2.getUseremails().get(checking).getUseremail()
+      updatedu2.getUserEmails().get(checking).getUserEmail()
     );
   }
 
@@ -131,13 +131,13 @@ public class UserServiceImplTest {
   @Test(expected = ResourceNotFoundException.class)
   public void GB_updateNotCurrentUserNorAdmin() {
     Role r2 = new Role("user");
-    r2.setRoleid(2);
+    r2.setRoleId(2);
 
     User u2 = new User("cinnamon", "password", "cinnamon@school.lambda");
     u2.getRoles().add(new UserRoles(u2, r2));
-    u2.getUseremails().add(new Useremail(u2, "cinnamon@mymail.thump"));
-    u2.getUseremails().add(new Useremail(u2, "hops@mymail.thump"));
-    u2.getUseremails().add(new Useremail(u2, "bunny@email.thump"));
+    u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
+    u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));
+    u2.getUserEmails().add(new UserEmail(u2, "bunny@email.thump"));
 
     User updatedu2 = userService.update(u2, 8);
 
@@ -145,10 +145,10 @@ public class UserServiceImplTest {
     System.out.println(updatedu2);
     System.out.println("*** DATA ***");
 
-    int checking = updatedu2.getUseremails().size() - 1;
+    int checking = updatedu2.getUserEmails().size() - 1;
     assertEquals(
       "bunny@email.thump",
-      updatedu2.getUseremails().get(checking).getUseremail()
+      updatedu2.getUserEmails().get(checking).getUserEmail()
     );
   }
 }

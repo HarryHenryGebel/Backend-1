@@ -51,9 +51,8 @@ public class OpenController {
    * This endpoint always anyone to create an account with the default role of USER. That role is hardcoded in this method.
    *
    * @param httpServletRequest the request that comes in for creating the new user
-   * @param newminuser         A special minimum set of data that is needed to create a new user
-   * @return The token access and other relevent data to token access. Status of CREATED. The location header to look up the new user.
-   * @throws URISyntaxException we create some URIs during this method. If anything goes wrong with that creation, an exception is thrown.
+   * @param userMinimum         A special minimum set of data that is needed to create a new user
+   * @return The token access and other relevant data to token access. Status of CREATED. The location header to look up the new user.
    */
   @PostMapping(
     value = "/createnewuser",
@@ -62,22 +61,20 @@ public class OpenController {
   )
   public ResponseEntity<?> addSelf(
     HttpServletRequest httpServletRequest,
-    @Valid @RequestBody UserMinimum newminuser
-  )
-    throws URISyntaxException {
+    @Valid @RequestBody UserMinimum userMinimum
+  ) {
     // Create the user
-    User newuser = new User();
+    User newUser = new User();
 
-    newuser.setUsername(newminuser.getUsername());
-    newuser.setPassword(newminuser.getPassword());
-    newuser.setPrimaryemail(newminuser.getPrimaryemail());
+    newUser.setPassword(userMinimum.getPassword());
+    newUser.setPrimaryEmail(userMinimum.getPrimaryEmail());
 
     // add the default role of user
     Set<UserRoles> newRoles = new HashSet<>();
-    newRoles.add(new UserRoles(newuser, roleService.findByName("user")));
-    newuser.setRoles(newRoles);
+    newRoles.add(new UserRoles(newUser, roleService.findByName("user")));
+    newUser.setRoles(newRoles);
 
-    newuser = userService.save(newuser);
+    newUser = userService.save(newUser);
 
     // set the location header for the newly created resource
     // The location comes from a different controller!
@@ -89,7 +86,7 @@ public class OpenController {
         httpServletRequest.getLocalPort() +
         "/users/user/{userId}"
       )
-      .buildAndExpand(newuser.getUserid())
+      .buildAndExpand(newUser.getUserId())
       .toUri();
     responseHeaders.setLocation(newUserURI);
 
@@ -117,8 +114,8 @@ public class OpenController {
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
     map.add("grant_type", "password");
     map.add("scope", "read write trust");
-    map.add("username", newminuser.getUsername());
-    map.add("password", newminuser.getPassword());
+    map.add("username", userMinimum.getUsername());
+    map.add("password", userMinimum.getPassword());
 
     HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(
       map,

@@ -8,7 +8,7 @@ import java.util.List;
  * <p>
  * Note: Emails are added through the add user process
  */
-public interface UseremailService {
+public interface UserEmailService {
   /**
    * Returns a list of all users and their emails
    *
@@ -22,7 +22,7 @@ public interface UseremailService {
    * @param id The primary key (long) of the user email combination you seek
    * @return The user email combination (UserEmail) you seek
    */
-  UserEmail findUseremailById(long id);
+  UserEmail findUserEmailById(long id);
 
   /**
    * Remove the user email combination referenced by the given id
@@ -34,18 +34,18 @@ public interface UseremailService {
   /**
    * Replaces the email of the user email combination you seek
    *
-   * @param useremailid  The primary key (long) of the user email combination you seek
-   * @param emailaddress The new email address (String) for this user email combination
+   * @param userEmailId  The primary key (long) of the user email combination you seek
+   * @param emailAddress The new email address (String) for this user email combination
    * @return The UserEmail object that you updated including the new email address
    */
-  UserEmail update(long useremailid, String emailaddress);
+  UserEmail update(long userEmailId, String emailAddress);
 
   /**
    * Add a new User Email combination
    *
    * @param userid       the userid of the new user email combination
-   * @param emailaddress the email address of the new user email combination
+   * @param emailAddress the email address of the new user email combination
    * @return the new user email combination
    */
-  UserEmail save(long userid, String emailaddress);
+  UserEmail save(long userid, String emailAddress);
 }

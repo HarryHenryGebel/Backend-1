@@ -2,112 +2,105 @@ package com.lambdaschool.marketplace.controllers;
 
 import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.services.UserEmailService;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
 
 /**
  * The entry point for client to access user, email combinations
  */
 @RestController
-@RequestMapping("/useremails")
-public class UseremailController {
+@RequestMapping("/user_emails")
+public class UserEmailController {
   /**
    * Using the UserEmail service to process user, email combinations data
    */
-  @Autowired
-  UserEmailService useremailService;
+  private final UserEmailService userEmailService;
+
+  public UserEmailController(UserEmailService userEmailService) {
+    this.userEmailService = userEmailService;
+  }
 
   /**
    * List of all users emails
-   * <br>Example: <a href="http://localhost:2019/useremails/useremails">http://localhost:2019/useremails/useremails</a>
+   * <br>Example: <a href="http://localhost:2019/user_emails/user_emails">http://localhost:2019/user_emails/user_emails</a>
    *
    * @return JSON list of all users emails
    */
-  @GetMapping(value = "/useremails", produces = "application/json")
-  public ResponseEntity<?> listAllUseremails() {
-    List<UserEmail> allUserEmails = useremailService.findAll();
+  @GetMapping(value = "/user_emails", produces = "application/json")
+  public ResponseEntity<?> listAllUserEmails() {
+    List<UserEmail> allUserEmails = userEmailService.findAll();
     return new ResponseEntity<>(allUserEmails, HttpStatus.OK);
   }
 
   /**
    * Return the user email combination referenced by the given primary key
-   * <br>Example: <a href="http://localhost:2019/useremails/useremail/8">http://localhost:2019/useremails/useremail/8</a>
+   * <br>Example: <a href="http://localhost:2019/user_emails/user_email/8">http://localhost:2019/user_emails/user_email/8</a>
    *
-   * @param useremailId the primary key of the user email combination you seek
+   * @param userEmailId the primary key of the user email combination you seek
    * @return JSON object of the user email combination you seek with a status of OK
    */
-  @GetMapping(value = "/useremail/{useremailId}", produces = "application/json")
-  public ResponseEntity<?> getUserEmailById(@PathVariable Long useremailId) {
-    UserEmail ue = useremailService.findUserEmailById(useremailId);
+  @GetMapping(value = "/user_email/{user_email_id}", produces = "application/json")
+  public ResponseEntity<?> getUserEmailById(@PathVariable Long userEmailId) {
+    UserEmail ue = userEmailService.findUserEmailById(userEmailId);
     return new ResponseEntity<>(ue, HttpStatus.OK);
   }
 
   /**
    * Removes the given user email combination
-   * <br>Example: <a href="http://localhost:2019/useremails/useremail/8">http://localhost:2019/useremails/useremail/8</a>
+   * <br>Example: <a href="http://localhost:2019/user_emails/user_email/8">http://localhost:2019/user_emails/user_email/8</a>
    *
-   * @param useremailid the primary key of the user email combination you wish to remove
+   * @param userEmailId the primary key of the user email combination you wish to remove
    * @return Status of OK
    */
-  @DeleteMapping(value = "/useremail/{useremailid}")
-  public ResponseEntity<?> deleteUserEmailById(@PathVariable long useremailid) {
-    useremailService.delete(useremailid);
+  @DeleteMapping(value = "/user_email/{user_email_id}")
+  public ResponseEntity<?> deleteUserEmailById(@PathVariable long userEmailId) {
+    userEmailService.delete(userEmailId);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   /**
    * Change the email associated with the given user email combination
-   * <br>Example: <a href="http://localhost:2019/useremails/useremail/9/email/favbun@hops.local">http://localhost:2019/useremails/useremail/9/email/favbun@hops.local</a>
+   * <br>Example: <a href="http://localhost:2019/user_emails/user_email/9/email/favbun@hops.local">http://localhost:2019/user_emails/user_email/9/email/favbun@hops.local</a>
    *
-   * @param useremailid  The primary key of the user email combination you wish to change
-   * @param emailaddress The new email (String)
+   * @param userEmailId  The primary key of the user email combination you wish to change
+   * @param emailAddress The new email (String)
    * @return Status of OK
    */
-  @PutMapping("/useremail/{useremailid}/email/{emailaddress}")
+  @PutMapping("/user_email/{user_email_id}/email/{email_address}")
   public ResponseEntity<?> updateUserEmail(
-    @PathVariable long useremailid,
-    @PathVariable String emailaddress
+    @PathVariable long userEmailId,
+    @PathVariable String emailAddress
   ) {
-    useremailService.update(useremailid, emailaddress);
+    userEmailService.update(userEmailId, emailAddress);
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
   /**
    * Adds a new user email combination
    *
-   * @param userid       the user id of the new user email combination
-   * @param emailaddress the email address of the new user eamil combination
+   * @param userId       the user id of the new user email combination
+   * @param emailAddress the email address of the new user email combination
    * @return A location header with the URI to the newly created user email combination and a status of CREATED
-   * @throws URISyntaxException Exception if something does not work in creating the location header
    * @see UserEmailService#save(long, String) UserEmailService.save(long, String)
    */
-  @PostMapping(value = "/user/{userid}/email/{emailaddress}")
+  @PostMapping(value = "/user/{userId}/email/{email_address}")
   public ResponseEntity<?> addNewUserEmail(
-    @PathVariable long userid,
-    @PathVariable String emailaddress
-  )
-    throws URISyntaxException {
-    UserEmail newUserEmail = useremailService.save(userid, emailaddress);
+    @PathVariable long userId,
+    @PathVariable String emailAddress
+  ) {
+    UserEmail newUserEmail = userEmailService.save(userId, emailAddress);
 
     // set the location header for the newly created resource
     HttpHeaders responseHeaders = new HttpHeaders();
     URI newUserEmailURI = ServletUriComponentsBuilder
       .fromCurrentServletMapping()
-      .path("/useremails/useremail/{useremailid}")
+      .path("/user_emails/user_email/{user_email_id}")
       .buildAndExpand(newUserEmail.getUserEmailId())
       .toUri();
     responseHeaders.setLocation(newUserEmailURI);

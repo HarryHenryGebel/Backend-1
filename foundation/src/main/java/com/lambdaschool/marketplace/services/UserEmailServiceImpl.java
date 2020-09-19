@@ -6,30 +6,33 @@ import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.repository.UserEmailRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Implements the UseremailService Interface
+ * Implements the UserEmailService Interface
  */
 @Transactional
-@Service(value = "useremailService")
-public class UseremailServiceImpl implements UseremailService {
+@Service(value = "userEmailService")
+public class UserEmailServiceImpl implements UserEmailService {
   /**
    * Connects this service to the UserEmail model
    */
-  @Autowired
-  private UserEmailRepository useremailrepos;
+  private final UserEmailRepository userEmailRepository;
 
   /**
-   * Connects this servive to the User Service
+   * Connects this service to the User Service
    */
-  @Autowired
-  private UserService userService;
+  private final UserService userService;
 
-  @Autowired
-  private HelperFunctions helperFunctions;
+  private final HelperFunctions helperFunctions;
+
+  public UserEmailServiceImpl(UserEmailRepository userEmailRepository, UserService userService, HelperFunctions helperFunctions) {
+    this.userEmailRepository = userEmailRepository;
+    this.userService = userService;
+    this.helperFunctions = helperFunctions;
+  }
 
   @Override
   public List<UserEmail> findAll() {
@@ -38,13 +41,13 @@ public class UseremailServiceImpl implements UseremailService {
      * findAll returns an iterator set.
      * iterate over the iterator set and add each element to an array list.
      */
-    useremailrepos.findAll().iterator().forEachRemaining(list::add);
+    userEmailRepository.findAll().iterator().forEachRemaining(list::add);
     return list;
   }
 
   @Override
-  public UserEmail findUseremailById(long id) {
-    return useremailrepos
+  public UserEmail findUserEmailById(long id) {
+    return userEmailRepository
       .findById(id)
       .orElseThrow(
         () ->
@@ -57,13 +60,13 @@ public class UseremailServiceImpl implements UseremailService {
   @Transactional
   @Override
   public void delete(long id) {
-    if (useremailrepos.findById(id).isPresent()) {
+    if (userEmailRepository.findById(id).isPresent()) {
       if (
         helperFunctions.isAuthorizedToMakeChange(
-          useremailrepos.findById(id).get().getUser().getUsername()
+          userEmailRepository.findById(id).get().getUser().getUsername()
         )
       ) {
-        useremailrepos.deleteById(id);
+        userEmailRepository.deleteById(id);
       }
     } else {
       throw new ResourceNotFoundException(
@@ -74,16 +77,16 @@ public class UseremailServiceImpl implements UseremailService {
 
   @Transactional
   @Override
-  public UserEmail update(long useremailid, String emailaddress) {
-    if (useremailrepos.findById(useremailid).isPresent()) {
+  public UserEmail update(long userEmailId, String emailAddress) {
+    if (userEmailRepository.findById(userEmailId).isPresent()) {
       if (
         helperFunctions.isAuthorizedToMakeChange(
-          useremailrepos.findById(useremailid).get().getUser().getUsername()
+          userEmailRepository.findById(userEmailId).get().getUser().getUsername()
         )
       ) {
-        UserEmail useremail = findUseremailById(useremailid);
-        useremail.setUserEmail(emailaddress.toLowerCase());
-        return useremailrepos.save(useremail);
+        UserEmail useremail = findUserEmailById(userEmailId);
+        useremail.setUserEmail(emailAddress.toLowerCase());
+        return userEmailRepository.save(useremail);
       } else {
         // note we should never get to this line but is needed for the compiler
         // to recognize that this exception can be thrown
@@ -93,19 +96,19 @@ public class UseremailServiceImpl implements UseremailService {
       }
     } else {
       throw new ResourceNotFoundException(
-        "UserEmail with id " + useremailid + " Not Found!"
+        "UserEmail with id " + userEmailId + " Not Found!"
       );
     }
   }
 
   @Transactional
   @Override
-  public UserEmail save(long userid, String emailaddress) {
+  public UserEmail save(long userid, String emailAddress) {
     User currentUser = userService.findUserById(userid);
 
     if (helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername())) {
-      UserEmail newUserEmail = new UserEmail(currentUser, emailaddress);
-      return useremailrepos.save(newUserEmail);
+      UserEmail newUserEmail = new UserEmail(currentUser, emailAddress);
+      return userEmailRepository.save(newUserEmail);
     } else {
       // note we should never get to this line but is needed for the compiler
       // to recognize that this exception can be thrown

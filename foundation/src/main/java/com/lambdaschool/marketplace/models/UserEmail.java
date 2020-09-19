@@ -12,19 +12,19 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 /**
- * The entity allowing interaction with the useremails table
+ * The entity allowing interaction with the user_emails table
  * <p>
- * requires each combination of user and useremail to be unique. The same email cannot be assigned to the same user more than once.
+ * requires each combination of user and user_email to be unique. The same email cannot be assigned to the same user more than once.
  */
 @Entity
-@Table(name = "useremails")
-public class Useremail extends Auditable {
+@Table(name = "user_emails")
+public class UserEmail extends Auditable {
   /**
-   * The primary key (long) of the useremails table
+   * The primary key (long) of the user_emails table
    */
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private long useremailid;
+  private long userEmailId;
 
   /**
    * Email (String) for this user. Cannot be nullable.
@@ -32,76 +32,76 @@ public class Useremail extends Auditable {
    */
   @Column(nullable = false)
   @Email
-  private String useremail;
+  private String userEmail;
 
   /**
    * The userid of the user assigned to this email is what is stored in the database.
    * This is the entire user object!
    * <p>
-   * Forms a Many to One relationship between useremails and users.
+   * Forms a Many to One relationship between user_emails and users.
    * A user can have many emails.
    */
   @ManyToOne
   @JoinColumn(name = "userid", nullable = false)
-  @JsonIgnoreProperties(value = "useremails", allowSetters = true)
+  @JsonIgnoreProperties(value = "userEmails", allowSetters = true)
   private User user;
 
   /**
    * The default controller is required by JPA
    */
-  public Useremail() {}
+  public UserEmail() {}
 
   /**
-   * Given the parameters, create a new useremail object
+   * Given the parameters, create a new user_email object
    *
-   * @param user      the user (User) assigned to the email
-   * @param useremail useremail (String) for the given user
+   * @param user      the user assigned to the email
+   * @param userEmail primary email for the given user
    */
-  public Useremail(User user, String useremail) {
-    this.useremail = useremail;
+  public UserEmail(User user, String userEmail) {
+    this.userEmail = userEmail;
     this.user = user;
   }
 
   /**
-   * Getter for useremailid
+   * Getter for userEmailId
    *
-   * @return the primary key (long) of this useremail object
+   * @return the primary key of this userEmail object
    */
-  public long getUseremailid() {
-    return useremailid;
+  public long getUserEmailId() {
+    return userEmailId;
   }
 
   /**
-   * Setter for useremailid. Used for seeding data
+   * Setter for userEmailId. Used for seeding data
    *
-   * @param useremailid the new primary key (long) of this useremail object
+   * @param userEmailId the new primary key (long) of this userEmail object
    */
-  public void setUseremailid(long useremailid) {
-    this.useremailid = useremailid;
+  public void setUserEmailId(long userEmailId) {
+    this.userEmailId = userEmailId;
   }
 
   /**
-   * Getter for useremail
+   * Getter for userEmail
    *
-   * @return the email (String) associated with this useremail object in lowercase
+   * @return the email (String) associated with this userEmail object in lowercase
    */
-  public String getUseremail() {
-    return useremail;
+  public String getUserEmail() {
+    return userEmail;
   }
 
   /**
-   * Setter for useremail
+   * Setter for userEmail
    *
-   * @param useremail the email (String) to replace the one currently assigned to this useremail object, in lowercase
+   * @param userEmail the email (String) to replace the one currently assigned to this userEmail object, in lowercase
    */
-  public void setUseremail(String useremail) {
-    this.useremail = useremail.toLowerCase();
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail.toLowerCase();
   }
 
   /**
    * Getter for user
    *
-   * @return the user object associated with this useremail.
+   * @return the user object associated with this userEmail.
    */
   public User getUser() {
     return user;
@@ -110,7 +110,7 @@ public class Useremail extends Auditable {
   /**
    * Setter for user
    *
-   * @param user the user object to replace the one currently assigned to this useremail object
+   * @param user the user object to replace the one currently assigned to this userEmail object
    */
   public void setUser(User user) {
     this.user = user;

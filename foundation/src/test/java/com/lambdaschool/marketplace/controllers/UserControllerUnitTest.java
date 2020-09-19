@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserRoles;
-import com.lambdaschool.marketplace.models.Useremail;
+import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.services.UserService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import java.util.ArrayList;
@@ -57,11 +57,11 @@ public class UserControllerUnitTest {
     userList = new ArrayList<>();
 
     Role r1 = new Role("admin");
-    r1.setRoleid(1);
+    r1.setRoleId(1);
     Role r2 = new Role("user");
-    r2.setRoleid(2);
+    r2.setRoleId(2);
     Role r3 = new Role("data");
-    r3.setRoleid(3);
+    r3.setRoleId(3);
 
     // admin, data, user
     User u1 = new User("admin", "ILuvM4th!", "admin@lambdaschool.local");
@@ -69,13 +69,13 @@ public class UserControllerUnitTest {
     u1.getRoles().add(new UserRoles(u1, r2));
     u1.getRoles().add(new UserRoles(u1, r3));
 
-    u1.getUseremails().add(new Useremail(u1, "admin@email.local"));
-    u1.getUseremails().get(0).setUseremailid(10);
+    u1.getUserEmails().add(new UserEmail(u1, "admin@email.local"));
+    u1.getUserEmails().get(0).setUserEmailId(10);
 
-    u1.getUseremails().add(new Useremail(u1, "admin@mymail.local"));
-    u1.getUseremails().get(1).setUseremailid(11);
+    u1.getUserEmails().add(new UserEmail(u1, "admin@mymail.local"));
+    u1.getUserEmails().get(1).setUserEmailId(11);
 
-    u1.setUserid(101);
+    u1.setUserId(101);
     userList.add(u1);
 
     // data, user
@@ -84,38 +84,38 @@ public class UserControllerUnitTest {
     u1.getRoles().add(new UserRoles(u2, r2));
     u1.getRoles().add(new UserRoles(u2, r3));
 
-    u2.getUseremails().add(new Useremail(u2, "cinnamon@mymail.local"));
-    u2.getUseremails().get(0).setUseremailid(20);
+    u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.local"));
+    u2.getUserEmails().get(0).setUserEmailId(20);
 
-    u2.getUseremails().add(new Useremail(u2, "hops@mymail.local"));
-    u2.getUseremails().get(1).setUseremailid(21);
+    u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.local"));
+    u2.getUserEmails().get(1).setUserEmailId(21);
 
-    u2.getUseremails().add(new Useremail(u2, "bunny@email.local"));
-    u2.getUseremails().get(2).setUseremailid(22);
+    u2.getUserEmails().add(new UserEmail(u2, "bunny@email.local"));
+    u2.getUserEmails().get(2).setUserEmailId(22);
 
-    u2.setUserid(102);
+    u2.setUserId(102);
     userList.add(u2);
 
     // user
     User u3 = new User("testingbarn", "ILuvM4th!", "testingbarn@school.lambda");
     u3.getRoles().add(new UserRoles(u3, r1));
 
-    u3.getUseremails().add(new Useremail(u3, "barnbarn@email.local"));
-    u3.getUseremails().get(0).setUseremailid(30);
+    u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));
+    u3.getUserEmails().get(0).setUserEmailId(30);
 
-    u3.setUserid(103);
+    u3.setUserId(103);
     userList.add(u3);
 
     User u4 = new User("testingcat", "password", "testingcat@school.lambda");
     u4.getRoles().add(new UserRoles(u4, r2));
 
-    u4.setUserid(104);
+    u4.setUserId(104);
     userList.add(u4);
 
     User u5 = new User("testingdog", "password", "testingdog@school.lambda");
     u4.getRoles().add(new UserRoles(u5, r2));
 
-    u5.setUserid(105);
+    u5.setUserId(105);
     userList.add(u5);
 
     System.out.println("\n*** Seed Data ***");
@@ -275,10 +275,10 @@ public class UserControllerUnitTest {
 
     // build a user
     User u1 = new User();
-    u1.setUserid(100);
+    u1.setUserId(100);
     u1.setUsername("tiger");
     u1.setPassword("ILuvM4th!");
-    u1.setPrimaryemail("tiger@home.local");
+    u1.setPrimaryEmail("tiger@home.local");
 
     ObjectMapper mapper = new ObjectMapper();
     String userString = mapper.writeValueAsString(u1);
@@ -303,9 +303,9 @@ public class UserControllerUnitTest {
 
     // build a user
     User u1 = new User();
-    u1.setUserid(100);
+    u1.setUserId(100);
     u1.setUsername("tigerUpdated");
-    u1.setPrimaryemail("home@local.home");
+    u1.setPrimaryEmail("home@local.home");
     u1.setPassword("ILuvM4th!");
 
     Mockito.when(userService.update(u1, 100)).thenReturn(userList.get(0));

@@ -16,7 +16,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
    * @param username the name (String) of user you seek
    * @return the first user object with the name you seek
    */
-  User findByUsername(String username);
+  User findByPrimaryEmail(String username);
 
   /**
    * Find all users whose name contains a given substring ignoring case
@@ -24,5 +24,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
    * @param name the substring of the names (String) you seek
    * @return List of users whose name contain the given substring ignoring case
    */
-  List<User> findByUsernameContainingIgnoreCase(String name);
+  List<User> findByPrimaryEmailContainingIgnoreCase(String name);
 }

@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findByNameContaining(String username) {
-    return userRepository.findByPrimaryEmailContainingIgnoreCase(
+    return userRepository.findByPrimaryEmailContaining(
       username.toLowerCase()
     );
   }

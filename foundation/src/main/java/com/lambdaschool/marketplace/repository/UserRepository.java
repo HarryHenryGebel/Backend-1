@@ -11,18 +11,20 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
   /**
-   * Find a user based off over username
+   * Find a user based on their primary email
    *
-   * @param username the name (String) of user you seek
+   * @param primaryEmail the name (String) of user you seek
    * @return the first user object with the name you seek
    */
-  User findByPrimaryEmail(String username);
+  User findByPrimaryEmail(String primaryEmail);
 
   /**
-   * Find all users whose name contains a given substring ignoring case
+   * Find all users whose primary email contains a given substring. All emails
+   * are stored as lower case, so ignoring case is not necessary, and could mask
+   * an error that allowed the email to be set incorrectly.
    *
-   * @param name the substring of the names (String) you seek
-   * @return List of users whose name contain the given substring ignoring case
+   * @param primaryEmail the substring of the names (String) you seek
+   * @return List of users whose primaryEmail contain the given substring ignoring case
    */
-  List<User> findByPrimaryEmailContainingIgnoreCase(String name);
+  List<User> findByPrimaryEmailContaining(String primaryEmail);
 }

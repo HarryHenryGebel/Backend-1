@@ -8,11 +8,6 @@ import javax.validation.constraints.Email;
  */
 public class UserMinimum {
   /**
-   * The username (String)
-   */
-  private String username;
-
-  /**
    * The user's password (String)
    */
   private String password;
@@ -21,24 +16,14 @@ public class UserMinimum {
    * The user's primary email address (String)
    */
   @Email
-  private String primaryemail;
+  private String primaryEmail;
 
   /**
-   * Getter for the username
-   *
-   * @return the username (String) associated with this user
+   * Return username - username is synonymous with email, so return email
+   * @return
    */
   public String getUsername() {
-    return username;
-  }
-
-  /**
-   * Setter for the username
-   *
-   * @param username the new username (String) associated with this user
-   */
-  public void setUsername(String username) {
-    this.username = username;
+    return primaryEmail;
   }
 
   /**
@@ -65,16 +50,16 @@ public class UserMinimum {
    *
    * @return the email address (String) for this user
    */
-  public String getPrimaryemail() {
-    return primaryemail;
+  public String getPrimaryEmail() {
+    return primaryEmail;
   }
 
   /**
    * Setter for email for this user
    *
-   * @param primaryemail the new email address (String) for this user.
+   * @param primaryEmail the new email address (String) for this user.
    */
-  public void setPrimaryemail(String primaryemail) {
-    this.primaryemail = primaryemail;
+  public void setPrimaryEmail(String primaryEmail) {
+    this.primaryEmail = primaryEmail;
   }
 }

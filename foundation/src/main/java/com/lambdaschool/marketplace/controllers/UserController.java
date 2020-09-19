@@ -94,28 +94,26 @@ public class UserController {
   }
 
   /**
-   * Given a complete User Object, create a new User record and accompanying useremail records
+   * Given a complete User Object, create a new User record and accompanying userEmail records
    * and user role records.
    * <br> Example: <a href="http://localhost:2019/users/user">http://localhost:2019/users/user</a>
    *
-   * @param newuser A complete new user to add including emails and roles.
+   * @param newUser A complete new user to add including emails and roles.
    *                roles must already exist.
    * @return A location header with the URI to the newly created user and a status of CREATED
-   * @throws URISyntaxException Exception if something does not work in creating the location header
    * @see UserService#save(User) UserService.save(User)
    */
   @PostMapping(value = "/user", consumes = "application/json")
-  public ResponseEntity<?> addNewUser(@Valid @RequestBody User newuser)
-    throws URISyntaxException {
-    newuser.setUserid(0);
-    newuser = userService.save(newuser);
+  public ResponseEntity<?> addNewUser(@Valid @RequestBody User newUser) {
+    newUser.setUserId(0);
+    newUser = userService.save(newUser);
 
     // set the location header for the newly created resource
     HttpHeaders responseHeaders = new HttpHeaders();
     URI newUserURI = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{userid}")
-      .buildAndExpand(newuser.getUserid())
+      .buildAndExpand(newUser.getUserId())
       .toUri();
     responseHeaders.setLocation(newUserURI);
 
@@ -125,7 +123,7 @@ public class UserController {
   /**
    * Given a complete User Object
    * Given the user id, primary key, is in the User table,
-   * replace the User record and Useremail records.
+   * replace the User record and UserEmail records.
    * Roles are handled through different endpoints
    * <br> Example: <a href="http://localhost:2019/users/user/15">http://localhost:2019/users/user/15</a>
    *
@@ -140,7 +138,7 @@ public class UserController {
     @Valid @RequestBody User updateUser,
     @PathVariable long userid
   ) {
-    updateUser.setUserid(userid);
+    updateUser.setUserId(userid);
     userService.save(updateUser);
 
     return new ResponseEntity<>(HttpStatus.OK);
@@ -149,7 +147,7 @@ public class UserController {
   /**
    * Updates the user record associated with the given id with the provided data. Only the provided fields are affected.
    * Roles are handled through different endpoints
-   * If an email list is given, it replaces the original emai list.
+   * If an email list is given, it replaces the original email list.
    * <br> Example: <a href="http://localhost:2019/users/user/7">http://localhost:2019/users/user/7</a>
    *
    * @param updateUser An object containing values for just the fields that are being updated. All other fields are left NULL.
@@ -191,7 +189,7 @@ public class UserController {
     value = "returns the currently authenticated user",
     response = User.class
   )
-  @GetMapping(value = "/getuserinfo", produces = { "application/json" })
+  @GetMapping(value = "/get_user_info", produces = { "application/json" })
   public ResponseEntity<?> getCurrentUserInfo(Authentication authentication) {
     User u = userService.findByName(authentication.getName());
     return new ResponseEntity<>(u, HttpStatus.OK);

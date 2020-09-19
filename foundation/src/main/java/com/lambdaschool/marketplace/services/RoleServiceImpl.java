@@ -4,12 +4,11 @@ import com.lambdaschool.marketplace.exceptions.ResourceFoundException;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.repository.RoleRepository;
-import com.lambdaschool.marketplace.repository.UserRepository;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements the RoleService Interface
@@ -20,20 +19,17 @@ public class RoleServiceImpl implements RoleService {
   /**
    * Connects this service to the Role Model
    */
-  @Autowired
-  RoleRepository rolerepos;
-
-  /**
-   * Connect this service to the User Model
-   */
-  @Autowired
-  UserRepository userrepos;
+  private final RoleRepository roleRepository;
 
   /**
    * Connects this service to the auditing service in order to get current user name
    */
-  @Autowired
-  private UserAuditing userAuditing;
+  private final UserAuditing userAuditing;
+
+  public RoleServiceImpl(RoleRepository roleRepository, UserAuditing userAuditing) {
+    this.roleRepository = roleRepository;
+    this.userAuditing = userAuditing;
+  }
 
   @Override
   public List<Role> findAll() {
@@ -42,13 +38,13 @@ public class RoleServiceImpl implements RoleService {
      * findAll returns an iterator set.
      * iterate over the iterator set and add each element to an array list.
      */
-    rolerepos.findAll().iterator().forEachRemaining(list::add);
+    roleRepository.findAll().iterator().forEachRemaining(list::add);
     return list;
   }
 
   @Override
   public Role findRoleById(long id) {
-    return rolerepos
+    return roleRepository
       .findById(id)
       .orElseThrow(
         () -> new ResourceNotFoundException("Role id " + id + " not found!")
@@ -57,7 +53,7 @@ public class RoleServiceImpl implements RoleService {
 
   @Override
   public Role findByName(String name) {
-    Role rr = rolerepos.findByNameIgnoreCase(name);
+    Role rr = roleRepository.findByNameIgnoreCase(name);
 
     if (rr != null) {
       return rr;
@@ -75,13 +71,13 @@ public class RoleServiceImpl implements RoleService {
       );
     }
 
-    return rolerepos.save(role);
+    return roleRepository.save(role);
   }
 
   @Transactional
   @Override
   public void deleteAll() {
-    rolerepos.deleteAll();
+    roleRepository.deleteAll();
   }
 
   @Transactional
@@ -93,14 +89,16 @@ public class RoleServiceImpl implements RoleService {
 
     if (role.getUsers().size() > 0) {
       throw new ResourceFoundException(
-        "User Roles are not updated through Role. See endpoint POST: users/user/{userid}/role/{roleid}"
+        "User Roles are not updated through Role. See endpoint POST: users/user/{user_id}/role/{role_id}"
       );
     }
 
-    Role newRole = findRoleById(id); // see if id exists
+    findRoleById(id); // see if id exists
 
-    rolerepos.updateRoleName(
-      userAuditing.getCurrentAuditor().get(),
+    roleRepository.updateRoleName(
+      userAuditing.getCurrentAuditor().orElseThrow(
+        () -> new ResourceNotFoundException(
+          "Serious Error: userAuditing has invalid auditor")),
       id,
       role.getName()
     );

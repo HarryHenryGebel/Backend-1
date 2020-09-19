@@ -57,20 +57,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   /**
    * Our custom handling of ResourceNotFoundExceptions. This gets thrown manually by our application.
    *
-   * @param rnfe All the information about the exception that is thrown.
+   * @param resourceNotFoundException All the information about the exception that is thrown.
    * @return The error details for displaying to the client plus the status Not Found.
    */
   @ExceptionHandler(ResourceNotFoundException.class)
   public ResponseEntity<?> handleResourceNotFoundException(
-    ResourceNotFoundException rnfe
+    ResourceNotFoundException resourceNotFoundException
   ) {
     ErrorDetail errorDetail = new ErrorDetail();
     errorDetail.setTimestamp(new Date());
     errorDetail.setStatus(HttpStatus.NOT_FOUND.value());
     errorDetail.setTitle("Resource Not Found");
-    errorDetail.setDetail(rnfe.getMessage());
-    errorDetail.setDeveloperMessage(rnfe.getClass().getName());
-    errorDetail.setErrors(helperFunctions.getConstraintViolation(rnfe));
+    errorDetail.setDetail(resourceNotFoundException.getMessage());
+    errorDetail.setDeveloperMessage(resourceNotFoundException.getClass().getName());
+    errorDetail.setErrors(helperFunctions.getConstraintViolation(resourceNotFoundException));
 
     return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
   }

@@ -6,7 +6,7 @@ import com.github.javafaker.service.RandomService;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserRoles;
-import com.lambdaschool.marketplace.models.Useremail;
+import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
 import java.util.Locale;
@@ -63,8 +63,8 @@ public class SeedData implements CommandLineRunner {
     u1.getRoles().add(new UserRoles(u1, r1));
     u1.getRoles().add(new UserRoles(u1, r2));
     u1.getRoles().add(new UserRoles(u1, r3));
-    u1.getUseremails().add(new Useremail(u1, "admin@email.local"));
-    u1.getUseremails().add(new Useremail(u1, "admin@mymail.local"));
+    u1.getUserEmails().add(new UserEmail(u1, "admin@email.local"));
+    u1.getUserEmails().add(new UserEmail(u1, "admin@mymail.local"));
 
     userService.save(u1);
 
@@ -72,15 +72,15 @@ public class SeedData implements CommandLineRunner {
     User u2 = new User("cinnamon", "1234567", "cinnamon@lambdaschool.local");
     u2.getRoles().add(new UserRoles(u2, r2));
     u2.getRoles().add(new UserRoles(u2, r3));
-    u2.getUseremails().add(new Useremail(u2, "cinnamon@mymail.local"));
-    u2.getUseremails().add(new Useremail(u2, "hops@mymail.local"));
-    u2.getUseremails().add(new Useremail(u2, "bunny@email.local"));
+    u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.local"));
+    u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.local"));
+    u2.getUserEmails().add(new UserEmail(u2, "bunny@email.local"));
     userService.save(u2);
 
     // user
     User u3 = new User("barnbarn", "ILuvM4th!", "barnbarn@lambdaschool.local");
     u3.getRoles().add(new UserRoles(u3, r2));
-    u3.getUseremails().add(new Useremail(u3, "barnbarn@email.local"));
+    u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));
     userService.save(u3);
 
     User u4 = new User("puttat", "password", "puttat@school.lambda");
@@ -114,9 +114,9 @@ public class SeedData implements CommandLineRunner {
           );
         fakeUser.getRoles().add(new UserRoles(fakeUser, r2));
         fakeUser
-          .getUseremails()
+          .getUserEmails()
           .add(
-            new Useremail(
+            new UserEmail(
               fakeUser,
               fakeValuesService.bothify("????##@gmail.com")
             )

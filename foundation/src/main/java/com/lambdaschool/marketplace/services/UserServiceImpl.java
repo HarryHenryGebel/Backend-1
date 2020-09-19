@@ -4,11 +4,11 @@ import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserRoles;
-import com.lambdaschool.marketplace.models.Useremail;
+import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,20 +21,23 @@ public class UserServiceImpl implements UserService {
   /**
    * Connects this service to the User table.
    */
-  @Autowired
-  private UserRepository userrepos;
+  private final UserRepository userRepository;
 
   /**
    * Connects this service to the Role table
    */
-  @Autowired
-  private RoleService roleService;
+  private final RoleService roleService;
 
-  @Autowired
-  private HelperFunctions helperFunctions;
+  private final HelperFunctions helperFunctions;
+
+  public UserServiceImpl(UserRepository userRepository, RoleService roleService, HelperFunctions helperFunctions) {
+    this.userRepository = userRepository;
+    this.roleService = roleService;
+    this.helperFunctions = helperFunctions;
+  }
 
   public User findUserById(long id) throws ResourceNotFoundException {
-    return userrepos
+    return userRepository
       .findById(id)
       .orElseThrow(
         () -> new ResourceNotFoundException("User id " + id + " not found!")
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findByNameContaining(String username) {
-    return userrepos.findByUsernameContainingIgnoreCase(username.toLowerCase());
+    return userRepository.findByUsernameContainingIgnoreCase(username.toLowerCase());
   }
 
   @Override
@@ -53,24 +56,24 @@ public class UserServiceImpl implements UserService {
      * findAll returns an iterator set.
      * iterate over the iterator set and add each element to an array list.
      */
-    userrepos.findAll().iterator().forEachRemaining(list::add);
+    userRepository.findAll().iterator().forEachRemaining(list::add);
     return list;
   }
 
   @Transactional
   @Override
   public void delete(long id) {
-    userrepos
+    userRepository
       .findById(id)
       .orElseThrow(
         () -> new ResourceNotFoundException("User id " + id + " not found!")
       );
-    userrepos.deleteById(id);
+    userRepository.deleteById(id);
   }
 
   @Override
   public User findByName(String name) {
-    User uu = userrepos.findByUsername(name.toLowerCase());
+    User uu = userRepository.findByUsername(name.toLowerCase());
     if (uu == null) {
       throw new ResourceNotFoundException("User name " + name + " not found!");
     }
@@ -82,34 +85,34 @@ public class UserServiceImpl implements UserService {
   public User save(User user) {
     User newUser = new User();
 
-    if (user.getUserid() != 0) {
-      userrepos
-        .findById(user.getUserid())
+    if (user.getUserId() != 0) {
+      userRepository
+        .findById(user.getUserId())
         .orElseThrow(
           () ->
             new ResourceNotFoundException(
-              "User id " + user.getUserid() + " not found!"
+              "User id " + user.getUserId() + " not found!"
             )
         );
-      newUser.setUserid(user.getUserid());
+      newUser.setUserId(user.getUserId());
     }
 
     newUser.setUsername(user.getUsername().toLowerCase());
     newUser.setPasswordNoEncrypt(user.getPassword());
-    newUser.setPrimaryemail(user.getPrimaryemail().toLowerCase());
+    newUser.setPrimaryEmail(user.getPrimaryEmail().toLowerCase());
 
     newUser.getRoles().clear();
     for (UserRoles ur : user.getRoles()) {
-      Role addRole = roleService.findRoleById(ur.getRole().getRoleid());
+      Role addRole = roleService.findRoleById(ur.getRole().getRoleId());
       newUser.getRoles().add(new UserRoles(newUser, addRole));
     }
 
-    newUser.getUseremails().clear();
-    for (Useremail ue : user.getUseremails()) {
-      newUser.getUseremails().add(new Useremail(newUser, ue.getUseremail()));
+    newUser.getUserEmails().clear();
+    for (UserEmail ue : user.getUserEmails()) {
+      newUser.getUserEmails().add(new UserEmail(newUser, ue.getUserEmail()));
     }
 
-    return userrepos.save(newUser);
+    return userRepository.save(newUser);
   }
 
   @Transactional
@@ -126,29 +129,29 @@ public class UserServiceImpl implements UserService {
         currentUser.setPasswordNoEncrypt(user.getPassword());
       }
 
-      if (user.getPrimaryemail() != null) {
-        currentUser.setPrimaryemail(user.getPrimaryemail().toLowerCase());
+      if (user.getPrimaryEmail() != null) {
+        currentUser.setPrimaryEmail(user.getPrimaryEmail().toLowerCase());
       }
 
       if (user.getRoles().size() > 0) {
         currentUser.getRoles().clear();
         for (UserRoles ur : user.getRoles()) {
-          Role addRole = roleService.findRoleById(ur.getRole().getRoleid());
+          Role addRole = roleService.findRoleById(ur.getRole().getRoleId());
 
           currentUser.getRoles().add(new UserRoles(currentUser, addRole));
         }
       }
 
-      if (user.getUseremails().size() > 0) {
-        currentUser.getUseremails().clear();
-        for (Useremail ue : user.getUseremails()) {
+      if (user.getUserEmails().size() > 0) {
+        currentUser.getUserEmails().clear();
+        for (UserEmail ue : user.getUserEmails()) {
           currentUser
-            .getUseremails()
-            .add(new Useremail(currentUser, ue.getUseremail()));
+            .getUserEmails()
+            .add(new UserEmail(currentUser, ue.getUserEmail()));
         }
       }
 
-      return userrepos.save(currentUser);
+      return userRepository.save(currentUser);
     } else {
       // note we should never get to this line but is needed for the compiler
       // to recognize that this exception can be thrown
@@ -161,6 +164,6 @@ public class UserServiceImpl implements UserService {
   @Transactional
   @Override
   public void deleteAll() {
-    userrepos.deleteAll();
+    userRepository.deleteAll();
   }
 }

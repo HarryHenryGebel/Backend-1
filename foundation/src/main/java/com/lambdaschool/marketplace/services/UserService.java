@@ -43,7 +43,7 @@ public interface UserService {
   User findByName(String name);
 
   /**
-   * Deletes the user record and its useremail items from the database based off of the provided primary key
+   * Deletes the user record and its userEmail items from the database based off of the provided primary key
    *
    * @param id id The primary key (long) of the user you seek.
    */
@@ -62,7 +62,7 @@ public interface UserService {
   /**
    * Updates the provided fields in the user record referenced by the primary key.
    * <p>
-   * Regarding Role and Useremail items, this process only allows adding those. Deleting and editing those lists
+   * Regarding Role and UserEmail items, this process only allows adding those. Deleting and editing those lists
    * is done through a separate endpoint.
    *
    * @param user just the user fields to be updated.

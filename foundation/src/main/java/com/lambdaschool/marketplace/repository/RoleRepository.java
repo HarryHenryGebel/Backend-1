@@ -22,14 +22,14 @@ public interface RoleRepository extends CrudRepository<Role, Long> {
    * Updates the name of the role based on the given role id.
    *
    * @param uname  The username making this change
-   * @param roleid The primary key (long) of the role to change
+   * @param roleId The primary key (long) of the role to change
    * @param name   The new name (String) of the role
    */
   @Transactional
   @Modifying
   @Query(
-    value = "UPDATE roles SET name = :name, last_modified_by = :uname, last_modified_date = CURRENT_TIMESTAMP WHERE roleid = :roleid",
+    value = "UPDATE roles SET name = :name, last_modified_by = :uname, last_modified_date = CURRENT_TIMESTAMP WHERE role_id = :roleId",
     nativeQuery = true
   )
-  void updateRoleName(String uname, long roleid, String name);
+  void updateRoleName(String uname, long roleId, String name);
 }

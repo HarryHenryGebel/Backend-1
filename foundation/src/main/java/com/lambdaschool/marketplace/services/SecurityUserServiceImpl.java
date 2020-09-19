@@ -3,14 +3,10 @@ package com.lambdaschool.marketplace.services;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-// make sure the user that is in the import be the one from this application, not core security
-// import org.springframework.security.core.userdetails.User;
 
 /**
  * This implements User Details Service that allows us to authenticate a user.
@@ -20,8 +16,11 @@ public class SecurityUserServiceImpl implements UserDetailsService {
   /**
    * Ties this implementation to the User Repository so we can find a user in the database.
    */
-  @Autowired
-  private UserRepository userrepos;
+  private final UserRepository userRepository;
+
+  public SecurityUserServiceImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   /**
    * Verifies that the user is correct and if so creates the authenticated user
@@ -34,7 +33,7 @@ public class SecurityUserServiceImpl implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String s)
     throws ResourceNotFoundException {
-    User user = userrepos.findByUsername(s.toLowerCase());
+    User user = userRepository.findByUsername(s.toLowerCase());
     if (user == null) {
       throw new ResourceNotFoundException("Invalid username or password.");
     }

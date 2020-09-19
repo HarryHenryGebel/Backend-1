@@ -1,7 +1,8 @@
 package com.lambdaschool.marketplace.controllers;
 
-import com.lambdaschool.marketplace.models.Useremail;
-import com.lambdaschool.marketplace.services.UseremailService;
+import com.lambdaschool.marketplace.models.UserEmail;
+import com.lambdaschool.marketplace.services.UserEmailService;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,10 +26,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/useremails")
 public class UseremailController {
   /**
-   * Using the Useremail service to process user, email combinations data
+   * Using the UserEmail service to process user, email combinations data
    */
   @Autowired
-  UseremailService useremailService;
+  UserEmailService useremailService;
 
   /**
    * List of all users emails
@@ -38,7 +39,7 @@ public class UseremailController {
    */
   @GetMapping(value = "/useremails", produces = "application/json")
   public ResponseEntity<?> listAllUseremails() {
-    List<Useremail> allUserEmails = useremailService.findAll();
+    List<UserEmail> allUserEmails = useremailService.findAll();
     return new ResponseEntity<>(allUserEmails, HttpStatus.OK);
   }
 
@@ -51,7 +52,7 @@ public class UseremailController {
    */
   @GetMapping(value = "/useremail/{useremailId}", produces = "application/json")
   public ResponseEntity<?> getUserEmailById(@PathVariable Long useremailId) {
-    Useremail ue = useremailService.findUseremailById(useremailId);
+    UserEmail ue = useremailService.findUserEmailById(useremailId);
     return new ResponseEntity<>(ue, HttpStatus.OK);
   }
 
@@ -92,7 +93,7 @@ public class UseremailController {
    * @param emailaddress the email address of the new user eamil combination
    * @return A location header with the URI to the newly created user email combination and a status of CREATED
    * @throws URISyntaxException Exception if something does not work in creating the location header
-   * @see UseremailService#save(long, String) UseremailService.save(long, String)
+   * @see UserEmailService#save(long, String) UserEmailService.save(long, String)
    */
   @PostMapping(value = "/user/{userid}/email/{emailaddress}")
   public ResponseEntity<?> addNewUserEmail(
@@ -100,14 +101,14 @@ public class UseremailController {
     @PathVariable String emailaddress
   )
     throws URISyntaxException {
-    Useremail newUserEmail = useremailService.save(userid, emailaddress);
+    UserEmail newUserEmail = useremailService.save(userid, emailaddress);
 
     // set the location header for the newly created resource
     HttpHeaders responseHeaders = new HttpHeaders();
     URI newUserEmailURI = ServletUriComponentsBuilder
       .fromCurrentServletMapping()
       .path("/useremails/useremail/{useremailid}")
-      .buildAndExpand(newUserEmail.getUseremailid())
+      .buildAndExpand(newUserEmail.getUserEmailId())
       .toUri();
     responseHeaders.setLocation(newUserEmailURI);
 

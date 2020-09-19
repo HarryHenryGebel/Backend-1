@@ -2,8 +2,8 @@ package com.lambdaschool.marketplace.services;
 
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.User;
-import com.lambdaschool.marketplace.models.Useremail;
-import com.lambdaschool.marketplace.repository.UseremailRepository;
+import com.lambdaschool.marketplace.models.UserEmail;
+import com.lambdaschool.marketplace.repository.UserEmailRepository;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service(value = "useremailService")
 public class UseremailServiceImpl implements UseremailService {
   /**
-   * Connects this service to the Useremail model
+   * Connects this service to the UserEmail model
    */
   @Autowired
-  private UseremailRepository useremailrepos;
+  private UserEmailRepository useremailrepos;
 
   /**
    * Connects this servive to the User Service
@@ -32,8 +32,8 @@ public class UseremailServiceImpl implements UseremailService {
   private HelperFunctions helperFunctions;
 
   @Override
-  public List<Useremail> findAll() {
-    List<Useremail> list = new ArrayList<>();
+  public List<UserEmail> findAll() {
+    List<UserEmail> list = new ArrayList<>();
     /*
      * findAll returns an iterator set.
      * iterate over the iterator set and add each element to an array list.
@@ -43,13 +43,13 @@ public class UseremailServiceImpl implements UseremailService {
   }
 
   @Override
-  public Useremail findUseremailById(long id) {
+  public UserEmail findUseremailById(long id) {
     return useremailrepos
       .findById(id)
       .orElseThrow(
         () ->
           new ResourceNotFoundException(
-            "Useremail with id " + id + " Not Found!"
+            "UserEmail with id " + id + " Not Found!"
           )
       );
   }
@@ -67,22 +67,22 @@ public class UseremailServiceImpl implements UseremailService {
       }
     } else {
       throw new ResourceNotFoundException(
-        "Useremail with id " + id + " Not Found!"
+        "UserEmail with id " + id + " Not Found!"
       );
     }
   }
 
   @Transactional
   @Override
-  public Useremail update(long useremailid, String emailaddress) {
+  public UserEmail update(long useremailid, String emailaddress) {
     if (useremailrepos.findById(useremailid).isPresent()) {
       if (
         helperFunctions.isAuthorizedToMakeChange(
           useremailrepos.findById(useremailid).get().getUser().getUsername()
         )
       ) {
-        Useremail useremail = findUseremailById(useremailid);
-        useremail.setUseremail(emailaddress.toLowerCase());
+        UserEmail useremail = findUseremailById(useremailid);
+        useremail.setUserEmail(emailaddress.toLowerCase());
         return useremailrepos.save(useremail);
       } else {
         // note we should never get to this line but is needed for the compiler
@@ -93,18 +93,18 @@ public class UseremailServiceImpl implements UseremailService {
       }
     } else {
       throw new ResourceNotFoundException(
-        "Useremail with id " + useremailid + " Not Found!"
+        "UserEmail with id " + useremailid + " Not Found!"
       );
     }
   }
 
   @Transactional
   @Override
-  public Useremail save(long userid, String emailaddress) {
+  public UserEmail save(long userid, String emailaddress) {
     User currentUser = userService.findUserById(userid);
 
     if (helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername())) {
-      Useremail newUserEmail = new Useremail(currentUser, emailaddress);
+      UserEmail newUserEmail = new UserEmail(currentUser, emailaddress);
       return useremailrepos.save(newUserEmail);
     } else {
       // note we should never get to this line but is needed for the compiler

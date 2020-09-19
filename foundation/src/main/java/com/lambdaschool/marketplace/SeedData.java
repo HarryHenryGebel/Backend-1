@@ -1,16 +1,11 @@
 package com.lambdaschool.marketplace;
 
-import com.github.javafaker.Faker;
-import com.github.javafaker.service.FakeValuesService;
-import com.github.javafaker.service.RandomService;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
-import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
  * <p>
- * CoomandLineRunner: Spring Boot automatically runs the run method once and only once
+ * CommandLineRunner: Spring Boot automatically runs the run method once and only once
  * after the application context has been loaded.
  */
 @Transactional
@@ -27,14 +22,17 @@ public class SeedData implements CommandLineRunner {
   /**
    * Connects the Role Service to this process
    */
-  @Autowired
-  RoleService roleService;
+  final RoleService roleService;
 
   /**
    * Connects the user service to this process
    */
-  @Autowired
-  UserService userService;
+  final UserService userService;
+
+  public SeedData(RoleService roleService, UserService userService) {
+    this.roleService = roleService;
+    this.userService = userService;
+  }
 
   /**
    * Generates test, seed data for our application
@@ -47,7 +45,7 @@ public class SeedData implements CommandLineRunner {
    */
   @Transactional
   @Override
-  public void run(String[] args) throws Exception {
+  public void run(String[] args) {
     userService.deleteAll();
     roleService.deleteAll();
     Role r1 = new Role("admin");
@@ -59,7 +57,7 @@ public class SeedData implements CommandLineRunner {
     r3 = roleService.save(r3);
 
     // admin, data, user
-    User u1 = new User("admin", "password", "admin@lambdaschool.local");
+    User u1 = new User("password", "admin@lambdaschool.local");
     u1.getRoles().add(new UserRoles(u1, r1));
     u1.getRoles().add(new UserRoles(u1, r2));
     u1.getRoles().add(new UserRoles(u1, r3));
@@ -69,7 +67,7 @@ public class SeedData implements CommandLineRunner {
     userService.save(u1);
 
     // data, user
-    User u2 = new User("cinnamon", "1234567", "cinnamon@lambdaschool.local");
+    User u2 = new User("1234567", "cinnamon@lambdaschool.local");
     u2.getRoles().add(new UserRoles(u2, r2));
     u2.getRoles().add(new UserRoles(u2, r3));
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.local"));
@@ -78,51 +76,17 @@ public class SeedData implements CommandLineRunner {
     userService.save(u2);
 
     // user
-    User u3 = new User("barnbarn", "ILuvM4th!", "barnbarn@lambdaschool.local");
+    User u3 = new User("ILuvM4th!", "barnbarn@lambdaschool.local");
     u3.getRoles().add(new UserRoles(u3, r2));
     u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));
     userService.save(u3);
 
-    User u4 = new User("puttat", "password", "puttat@school.lambda");
+    User u4 = new User("password", "puttat@school.lambda");
     u4.getRoles().add(new UserRoles(u4, r2));
     userService.save(u4);
 
-    User u5 = new User("misskitty", "password", "misskitty@school.lambda");
+    User u5 = new User("password", "misskitty@school.lambda");
     u5.getRoles().add(new UserRoles(u5, r2));
     userService.save(u5);
-
-    if (false) {
-      // using JavaFaker create a bunch of regular users
-      // https://www.baeldung.com/java-faker
-      // https://www.baeldung.com/regular-expressions-java
-
-      FakeValuesService fakeValuesService = new FakeValuesService(
-        new Locale("en-US"),
-        new RandomService()
-      );
-      Faker nameFaker = new Faker(new Locale("en-US"));
-
-      for (int i = 0; i < 25; i++) {
-        new User();
-        User fakeUser;
-
-        fakeUser =
-          new User(
-            nameFaker.name().username(),
-            "password",
-            nameFaker.internet().emailAddress()
-          );
-        fakeUser.getRoles().add(new UserRoles(fakeUser, r2));
-        fakeUser
-          .getUserEmails()
-          .add(
-            new UserEmail(
-              fakeUser,
-              fakeValuesService.bothify("????##@gmail.com")
-            )
-          );
-        userService.save(fakeUser);
-      }
-    }
   }
 }

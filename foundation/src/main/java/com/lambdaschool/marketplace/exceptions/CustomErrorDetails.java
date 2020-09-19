@@ -3,7 +3,6 @@ package com.lambdaschool.marketplace.exceptions;
 import com.lambdaschool.marketplace.services.HelperFunctions;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
@@ -16,8 +15,11 @@ public class CustomErrorDetails extends DefaultErrorAttributes {
   /**
    * Connects this class with the Helper Functions
    */
-  @Autowired
-  private HelperFunctions helperFunctions;
+  private final HelperFunctions helperFunctions;
+
+  public CustomErrorDetails(HelperFunctions helperFunctions) {
+    this.helperFunctions = helperFunctions;
+  }
 
   /**
    * Custom method to override the error details provided by Spring Boot. We want to use our own format.

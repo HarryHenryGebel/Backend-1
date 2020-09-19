@@ -6,14 +6,12 @@ import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,14 +36,17 @@ public class OpenController {
   /**
    * A method in this controller adds a new user to the application so needs access to User Services to do this.
    */
-  @Autowired
-  private UserService userService;
+  private final UserService userService;
 
   /**
    * A method in this controller adds a new user to the application with the role User so needs access to Role Services to do this.
    */
-  @Autowired
-  private RoleService roleService;
+  private final RoleService roleService;
+
+  public OpenController(UserService userService, RoleService roleService) {
+    this.userService = userService;
+    this.roleService = roleService;
+  }
 
   /**
    * This endpoint always anyone to create an account with the default role of USER. That role is hardcoded in this method.
@@ -54,6 +55,7 @@ public class OpenController {
    * @param userMinimum         A special minimum set of data that is needed to create a new user
    * @return The token access and other relevant data to token access. Status of CREATED. The location header to look up the new user.
    */
+  @SuppressWarnings("SpellCheckingInspection")
   @PostMapping(
     value = "/createnewuser",
     consumes = { "application/json" },

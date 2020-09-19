@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 @Service(value = "helperFunctions")
 public class HelperFunctionsImpl implements HelperFunctions {
 
+  @SuppressWarnings("rawtypes")
   public List<ValidationError> getConstraintViolation(Throwable cause) {
     // Find any data violations that might be associated with the error and report them
     // data validations get wrapped in other exceptions as we work through the Spring

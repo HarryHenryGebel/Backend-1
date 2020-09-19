@@ -2,14 +2,13 @@ package com.lambdaschool.marketplace.controllers;
 
 import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.services.UserEmailService;
+import java.net.URI;
+import java.util.List;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
-import java.util.List;
 
 /**
  * The entry point for client to access user, email combinations
@@ -45,7 +44,10 @@ public class UserEmailController {
    * @param userEmailId the primary key of the user email combination you seek
    * @return JSON object of the user email combination you seek with a status of OK
    */
-  @GetMapping(value = "/user_email/{user_email_id}", produces = "application/json")
+  @GetMapping(
+    value = "/user_email/{user_email_id}",
+    produces = "application/json"
+  )
   public ResponseEntity<?> getUserEmailById(@PathVariable Long userEmailId) {
     UserEmail ue = userEmailService.findUserEmailById(userEmailId);
     return new ResponseEntity<>(ue, HttpStatus.OK);

@@ -6,7 +6,6 @@ import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.repository.UserEmailRepository;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,11 @@ public class UserEmailServiceImpl implements UserEmailService {
 
   private final HelperFunctions helperFunctions;
 
-  public UserEmailServiceImpl(UserEmailRepository userEmailRepository, UserService userService, HelperFunctions helperFunctions) {
+  public UserEmailServiceImpl(
+    UserEmailRepository userEmailRepository,
+    UserService userService,
+    HelperFunctions helperFunctions
+  ) {
     this.userEmailRepository = userEmailRepository;
     this.userService = userService;
     this.helperFunctions = helperFunctions;
@@ -81,7 +84,11 @@ public class UserEmailServiceImpl implements UserEmailService {
     if (userEmailRepository.findById(userEmailId).isPresent()) {
       if (
         helperFunctions.isAuthorizedToMakeChange(
-          userEmailRepository.findById(userEmailId).get().getUser().getUsername()
+          userEmailRepository
+            .findById(userEmailId)
+            .get()
+            .getUser()
+            .getUsername()
         )
       ) {
         UserEmail useremail = findUserEmailById(userEmailId);

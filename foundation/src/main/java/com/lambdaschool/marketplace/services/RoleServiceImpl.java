@@ -4,11 +4,10 @@ import com.lambdaschool.marketplace.exceptions.ResourceFoundException;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.repository.RoleRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implements the RoleService Interface
@@ -26,7 +25,10 @@ public class RoleServiceImpl implements RoleService {
    */
   private final UserAuditing userAuditing;
 
-  public RoleServiceImpl(RoleRepository roleRepository, UserAuditing userAuditing) {
+  public RoleServiceImpl(
+    RoleRepository roleRepository,
+    UserAuditing userAuditing
+  ) {
     this.roleRepository = roleRepository;
     this.userAuditing = userAuditing;
   }
@@ -96,9 +98,14 @@ public class RoleServiceImpl implements RoleService {
     findRoleById(id); // see if id exists
 
     roleRepository.updateRoleName(
-      userAuditing.getCurrentAuditor().orElseThrow(
-        () -> new ResourceNotFoundException(
-          "Serious Error: userAuditing has invalid auditor")),
+      userAuditing
+        .getCurrentAuditor()
+        .orElseThrow(
+          () ->
+            new ResourceNotFoundException(
+              "Serious Error: userAuditing has invalid auditor"
+            )
+        ),
       id,
       role.getName()
     );

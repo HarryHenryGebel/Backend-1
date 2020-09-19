@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Date;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -44,14 +43,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   /**
    * Connects this class with the Helper Functions
    */
-  @Autowired
-  private HelperFunctions helperFunctions;
+  private final HelperFunctions helperFunctions;
 
   /**
    * The constructor for the RestExceptionHandler. Currently we do not do anything special. We just call the parent constructor.
    */
-  public RestExceptionHandler() {
+  public RestExceptionHandler(HelperFunctions helperFunctions) {
     super();
+    this.helperFunctions = helperFunctions;
   }
 
   /**
@@ -69,8 +68,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     errorDetail.setStatus(HttpStatus.NOT_FOUND.value());
     errorDetail.setTitle("Resource Not Found");
     errorDetail.setDetail(resourceNotFoundException.getMessage());
-    errorDetail.setDeveloperMessage(resourceNotFoundException.getClass().getName());
-    errorDetail.setErrors(helperFunctions.getConstraintViolation(resourceNotFoundException));
+    errorDetail.setDeveloperMessage(
+      resourceNotFoundException.getClass().getName()
+    );
+    errorDetail.setErrors(
+      helperFunctions.getConstraintViolation(resourceNotFoundException)
+    );
 
     return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
   }
@@ -125,10 +128,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(errorDetail, null, status);
   }
 
-  /*********************
-   * The rest of the methods are not required and so are provided for reference only.
-   * They allow you to better customized exception messages
-   ********************/
+  // The rest of the methods are not required and so are provided for reference only.
+  // They allow you to better customized exception messages
 
   /**
    * Reports when a correct endpoint is accessed but with an unsupported Http Method.

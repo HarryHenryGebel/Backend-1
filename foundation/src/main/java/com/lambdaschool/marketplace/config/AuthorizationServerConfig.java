@@ -1,6 +1,5 @@
 package com.lambdaschool.marketplace.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -69,20 +68,27 @@ public class AuthorizationServerConfig
   /**
    * The token store is configured in Security Config. However, the authorization server manages it
    */
-  @Autowired
-  private TokenStore tokenStore;
+  private final TokenStore tokenStore;
 
   /**
    * The authentication server authenticates a user to that user user gets assigned an access token that is managed by the authorization server
    */
-  @Autowired
-  private AuthenticationManager authenticationManager;
+  private final AuthenticationManager authenticationManager;
 
   /**
    * The authorization server must encrypt the client secret so needs to know what password encoder is in use.
    */
-  @Autowired
-  private PasswordEncoder encoder;
+  private final PasswordEncoder encoder;
+
+  public AuthorizationServerConfig(
+    TokenStore tokenStore,
+    AuthenticationManager authenticationManager,
+    PasswordEncoder encoder
+  ) {
+    this.tokenStore = tokenStore;
+    this.authenticationManager = authenticationManager;
+    this.encoder = encoder;
+  }
 
   /**
    * Method to configure the Client Details Service for our application. This is created and managed by Spring.
@@ -110,11 +116,9 @@ public class AuthorizationServerConfig
    *
    * @param endpoints The Authorization Server Endpoints Configurer is created and managed by Spring Boot Security.
    *                  We give the configurer some custom configuration and let it work!
-   * @throws Exception if the configuration fails
    */
   @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-    throws Exception {
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
     endpoints
       .tokenStore(tokenStore)
       .authenticationManager(authenticationManager);

@@ -8,8 +8,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
-import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.models.UserEmail;
+import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.services.UserService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import java.util.ArrayList;

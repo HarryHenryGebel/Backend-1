@@ -3,10 +3,12 @@ package com.lambdaschool.marketplace.repository;
 import com.lambdaschool.marketplace.models.User;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * The CRUD repository connecting User to the rest of the application
  */
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
   /**
    * Find a user based off over username

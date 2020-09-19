@@ -125,10 +125,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(errorDetail, null, status);
   }
 
-  /*********************
-   * The rest of the methods are not required and so are provided for reference only.
-   * They allow you to better customized exception messages
-   ********************/
+   // The rest of the methods are not required and so are provided for reference only.
+   // They allow you to better customized exception messages
 
   /**
    * Reports when a correct endpoint is accessed but with an unsupported Http Method.

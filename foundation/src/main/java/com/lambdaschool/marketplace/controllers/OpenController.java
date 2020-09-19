@@ -6,7 +6,6 @@ import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -57,6 +56,7 @@ public class OpenController {
    * @param userMinimum         A special minimum set of data that is needed to create a new user
    * @return The token access and other relevant data to token access. Status of CREATED. The location header to look up the new user.
    */
+  @SuppressWarnings("SpellCheckingInspection")
   @PostMapping(
     value = "/createnewuser",
     consumes = { "application/json" },

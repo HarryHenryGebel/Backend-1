@@ -112,11 +112,9 @@ public class AuthorizationServerConfig
    *
    * @param endpoints The Authorization Server Endpoints Configurer is created and managed by Spring Boot Security.
    *                  We give the configurer some custom configuration and let it work!
-   * @throws Exception if the configuration fails
    */
   @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-    throws Exception {
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
     endpoints
       .tokenStore(tokenStore)
       .authenticationManager(authenticationManager);

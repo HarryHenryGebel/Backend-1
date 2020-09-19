@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.lambdaschool</groupId>
-    <artifactId>usermodel</artifactId>
+    <artifactId>african-marketplace-730</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>usermodel</name>
-    <description>Demo project for Spring Boot</description>
+    <name>African Marketplace</name>
+    <description>African Marketplace Buildweek project</description>
 
     <properties>
         <java.version>14</java.version>

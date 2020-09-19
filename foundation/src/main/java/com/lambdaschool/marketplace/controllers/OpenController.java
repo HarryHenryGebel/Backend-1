@@ -110,8 +110,8 @@ public class OpenController {
     headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
     headers.setAccept(acceptableMediaTypes);
     headers.setBasicAuth(
-      System.getenv("OAUTHCLIENTID"),
-      System.getenv("OAUTHCLIENTSECRET")
+      System.getenv("CLIENT_ID"),
+      System.getenv("CLIENT_SECRET")
     );
 
     MultiValueMap<String, String> map = new LinkedMultiValueMap<>();

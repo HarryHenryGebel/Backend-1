@@ -3,12 +3,11 @@ package com.lambdaschool.marketplace.services;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
-import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.models.UserEmail;
+import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +29,11 @@ public class UserServiceImpl implements UserService {
 
   private final HelperFunctions helperFunctions;
 
-  public UserServiceImpl(UserRepository userRepository, RoleService roleService, HelperFunctions helperFunctions) {
+  public UserServiceImpl(
+    UserRepository userRepository,
+    RoleService roleService,
+    HelperFunctions helperFunctions
+  ) {
     this.userRepository = userRepository;
     this.roleService = roleService;
     this.helperFunctions = helperFunctions;
@@ -46,7 +49,9 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findByNameContaining(String username) {
-    return userRepository.findByUsernameContainingIgnoreCase(username.toLowerCase());
+    return userRepository.findByUsernameContainingIgnoreCase(
+      username.toLowerCase()
+    );
   }
 
   @Override

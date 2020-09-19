@@ -80,7 +80,11 @@ public class AuthorizationServerConfig
    */
   private final PasswordEncoder encoder;
 
-  public AuthorizationServerConfig(TokenStore tokenStore, AuthenticationManager authenticationManager, PasswordEncoder encoder) {
+  public AuthorizationServerConfig(
+    TokenStore tokenStore,
+    AuthenticationManager authenticationManager,
+    PasswordEncoder encoder
+  ) {
     this.tokenStore = tokenStore;
     this.authenticationManager = authenticationManager;
     this.encoder = encoder;

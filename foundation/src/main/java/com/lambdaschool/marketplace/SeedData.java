@@ -1,16 +1,11 @@
 package com.lambdaschool.marketplace;
 
-import com.github.javafaker.Faker;
-import com.github.javafaker.service.FakeValuesService;
-import com.github.javafaker.service.RandomService;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.models.UserRoles;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
-import java.util.Locale;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

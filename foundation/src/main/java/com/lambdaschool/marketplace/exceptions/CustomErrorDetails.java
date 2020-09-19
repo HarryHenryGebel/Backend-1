@@ -1,12 +1,11 @@
 package com.lambdaschool.marketplace.exceptions;
 
 import com.lambdaschool.marketplace.services.HelperFunctions;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Class to override the error details provided by Spring Boot. We want to use our own format.

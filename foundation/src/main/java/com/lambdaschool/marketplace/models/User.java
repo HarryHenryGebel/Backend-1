@@ -47,6 +47,11 @@ public class User extends Auditable {
   private String primaryEmail;
 
   /**
+   * Users full name, or any name the user wants to be addressed as.
+   */
+  private String name;
+
+  /**
    * A list of emails for this user
    */
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -74,9 +79,27 @@ public class User extends Auditable {
    * @param password     The password (String) of the user
    * @param primaryEmail The primary email (String) of the user
    */
-  public User(String password, String primaryEmail) {
+  public User(String password, String primaryEmail, String name) {
     setPassword(password);
     this.primaryEmail = primaryEmail;
+    this.name = name;
+  }
+
+  /**
+   * Set the user's full name, or any other name they would like to be addressed
+   * by.
+   * @return
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   *
+   * @param name
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**

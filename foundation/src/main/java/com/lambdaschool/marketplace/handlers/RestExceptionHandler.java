@@ -4,11 +4,8 @@ import com.lambdaschool.marketplace.exceptions.ResourceFoundException;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.ErrorDetail;
 import com.lambdaschool.marketplace.services.HelperFunctions;
-import java.util.Arrays;
-import java.util.Date;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -32,6 +29,9 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Arrays;
+import java.util.Date;
+
 /**
  * This is the driving class when an exception occurs. All exceptions are handled here.
  * This class is shared across all controllers due to the annotation RestControllerAdvice;
@@ -44,14 +44,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   /**
    * Connects this class with the Helper Functions
    */
-  @Autowired
-  private HelperFunctions helperFunctions;
+  private final HelperFunctions helperFunctions;
 
   /**
    * The constructor for the RestExceptionHandler. Currently we do not do anything special. We just call the parent constructor.
    */
-  public RestExceptionHandler() {
+  public RestExceptionHandler(HelperFunctions helperFunctions) {
     super();
+    this.helperFunctions = helperFunctions;
   }
 
   /**

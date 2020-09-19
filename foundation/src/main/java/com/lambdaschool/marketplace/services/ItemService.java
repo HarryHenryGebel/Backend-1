@@ -25,6 +25,13 @@ public interface ItemService {
     List<Item> findAllItems();
 
     /**
+     * Find a specific item object by the provided itemId
+     * @param itemId the itemId associated with the object you seek
+     * @return returns the item object associated with the itemId provided
+     */
+    Item findItemById(long itemId);
+
+    /**
      * Given a complete item object, saves that item object in the database.
      * If a primary key is provided, the record is completely replaced
      * If no primary key is provided, one is automatically generated and the record is added to the database.

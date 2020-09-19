@@ -7,6 +7,7 @@ import com.lambdaschool.marketplace.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,25 @@ public class ItemServiceImpl implements ItemService {
         return returnList;
     }
 
+    /**
+     * Finds the specified item based on the itemId provided
+     * @param itemId the itemId associated with the object you seek
+     * @return returns the item object associated with the provided itemId
+     * @throws ResourceNotFoundException
+     */
+    @Override
+    public Item findItemById(long itemId) throws ResourceNotFoundException{
+        return itemRepository.findById(itemId)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Item ID " + itemId + " not found!")
+                );
+    }
+
+    /**
+     * Saves a new item to the database
+     * @param item the item object to be saved
+     * @return returns the saved item
+     */
     @Transactional
     @Override
     public Item save(Item item) {
@@ -94,18 +114,78 @@ public class ItemServiceImpl implements ItemService {
         return itemRepository.save(newItem);
     }
 
+    /**
+     * Updates and existing item in the database with new information
+     * @param item just the item fields to be updated.
+     * @param itemId   The primary key (long) of the item to update
+     * @return returns the updated item
+     */
+    @Transactional
     @Override
     public Item update(Item item, long itemId) {
-        return null;
+        // Get the current item object from the database
+        Item currentItem = findItemById(itemId);
+
+        // Check if the current user is authorized to make the change
+        if (helperFunctions.isAuthorizedToMakeChange(item.getUser().getUsername())) {
+            // Check if the incoming object has a name and update if yes
+            if (item.getName() != null) {
+                currentItem.setName(item.getName());
+            }
+
+            // Check if the incoming object has a description and update if yes
+            if (item.getDescription() != null) {
+                currentItem.setDescription(item.getDescription());
+            }
+
+            // Check if the incoming object has a price and update if yes
+            if (item.getPrice() != 0) {
+                currentItem.setPrice(item.getPrice());
+            }
+
+            // Check if the incoming object has a market and update if yes
+            if (item.getMarket() != null) {
+                currentItem.setMarket(item.getMarket());
+            }
+
+            // Check if the incoming object has a product and update if yes
+            if (item.getProduct() != null) {
+                currentItem.setProduct(item.getProduct());
+            }
+
+            // Save the updated item to database
+            return itemRepository.save(currentItem);
+        } else {
+            // note we should never get to this line but is needed for the compiler
+            // to recognize that this exception can be thrown
+            throw new ResourceNotFoundException(
+                    "This user is not authorized to make change"
+            );
+        }
     }
 
+    /**
+     * Removes an item from the database based on the itemId provided
+     * @param itemId The primary key (long) of the item to be removed
+     * @throws EntityNotFoundException
+     */
+    @Transactional
     @Override
-    public void deleteItemById(long itemId) {
-
+    public void deleteItemById(long itemId) throws EntityNotFoundException {
+        itemRepository.findById(itemId)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Item number " + itemId + " not found!")
+                );
+        itemRepository.deleteById(itemId);
     }
 
+    /**
+     * Deletes all records from the items table
+     * Used primarily to clear the table before seeding with test data
+     */
+    @Transactional
     @Override
     public void deleteAll() {
-
+        itemRepository.deleteAll();
     }
 }

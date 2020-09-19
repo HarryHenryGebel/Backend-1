@@ -29,12 +29,12 @@ public class UserServiceImplTest {
   private UserService userService;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     MockitoAnnotations.initMocks(this);
   }
 
   @After
-  public void tearDown() throws Exception {}
+  public void tearDown() {}
 
   @Test
   public void B_findUserById() {
@@ -69,7 +69,7 @@ public class UserServiceImplTest {
   }
 
   @Test(expected = ResourceNotFoundException.class)
-  public void AA_findByUsernameNotfound() {
+  public void AA_findByUsernameNotFound() {
     assertEquals("admin", userService.findByName("turtle").getUsername());
   }
 
@@ -83,7 +83,7 @@ public class UserServiceImplTest {
     Role r2 = new Role("user");
     r2.setRoleId(2);
 
-    User u2 = new User("tiger", "ILuvMath!", "tiger@school.lambda");
+    User u2 = new User("ILuvMath!", "tiger@school.lambda");
     u2.getRoles().add(new UserRoles(u2, r2));
     u2.getUserEmails().add(new UserEmail(u2, "tiger@tiger.local"));
 
@@ -106,23 +106,23 @@ public class UserServiceImplTest {
     Role r2 = new Role("user");
     r2.setRoleId(2);
 
-    User u2 = new User("cinnamon", "password", "cinnamon@school.lambda");
+    User u2 = new User("password", "cinnamon@school.lambda");
     u2.getRoles().add(new UserRoles(u2, r2));
 
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "bunny@email.thump"));
 
-    User updatedu2 = userService.update(u2, 7);
+    User updatedU2 = userService.update(u2, 7);
 
     System.out.println("*** DATA ***");
-    System.out.println(updatedu2);
+    System.out.println(updatedU2);
     System.out.println("*** DATA ***");
 
-    int checking = updatedu2.getUserEmails().size() - 1;
+    int checking = updatedU2.getUserEmails().size() - 1;
     assertEquals(
       "bunny@email.thump",
-      updatedu2.getUserEmails().get(checking).getUserEmail()
+      updatedU2.getUserEmails().get(checking).getUserEmail()
     );
   }
 
@@ -133,22 +133,22 @@ public class UserServiceImplTest {
     Role r2 = new Role("user");
     r2.setRoleId(2);
 
-    User u2 = new User("cinnamon", "password", "cinnamon@school.lambda");
+    User u2 = new User("password", "cinnamon@school.lambda");
     u2.getRoles().add(new UserRoles(u2, r2));
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "bunny@email.thump"));
 
-    User updatedu2 = userService.update(u2, 8);
+    User updatedU2 = userService.update(u2, 8);
 
     System.out.println("*** DATA ***");
-    System.out.println(updatedu2);
+    System.out.println(updatedU2);
     System.out.println("*** DATA ***");
 
-    int checking = updatedu2.getUserEmails().size() - 1;
+    int checking = updatedU2.getUserEmails().size() - 1;
     assertEquals(
       "bunny@email.thump",
-      updatedu2.getUserEmails().get(checking).getUserEmail()
+      updatedU2.getUserEmails().get(checking).getUserEmail()
     );
   }
 }

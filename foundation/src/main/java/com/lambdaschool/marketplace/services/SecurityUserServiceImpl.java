@@ -33,7 +33,7 @@ public class SecurityUserServiceImpl implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String s)
     throws ResourceNotFoundException {
-    User user = userRepository.findByUsername(s.toLowerCase());
+    User user = userRepository.findByPrimaryEmail(s.toLowerCase());
     if (user == null) {
       throw new ResourceNotFoundException("Invalid username or password.");
     }

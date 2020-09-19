@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findByNameContaining(String username) {
-    return userRepository.findByUsernameContainingIgnoreCase(
+    return userRepository.findByPrimaryEmailContainingIgnoreCase(
       username.toLowerCase()
     );
   }
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User findByName(String name) {
-    User uu = userRepository.findByUsername(name.toLowerCase());
+    User uu = userRepository.findByPrimaryEmail(name.toLowerCase());
     if (uu == null) {
       throw new ResourceNotFoundException("User name " + name + " not found!");
     }
@@ -102,7 +102,6 @@ public class UserServiceImpl implements UserService {
       newUser.setUserId(user.getUserId());
     }
 
-    newUser.setUsername(user.getUsername().toLowerCase());
     newUser.setPasswordNoEncrypt(user.getPassword());
     newUser.setPrimaryEmail(user.getPrimaryEmail().toLowerCase());
 
@@ -126,10 +125,6 @@ public class UserServiceImpl implements UserService {
     User currentUser = findUserById(id);
 
     if (helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername())) {
-      if (user.getUsername() != null) {
-        currentUser.setUsername(user.getUsername().toLowerCase());
-      }
-
       if (user.getPassword() != null) {
         currentUser.setPasswordNoEncrypt(user.getPassword());
       }

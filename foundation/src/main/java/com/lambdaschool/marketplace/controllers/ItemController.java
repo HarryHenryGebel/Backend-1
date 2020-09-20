@@ -94,4 +94,31 @@ public class ItemController {
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
+    /**
+     * Updates the item record associated with the itemId in the request URI.
+     * Only the fields in the incoming JSON object are affected.
+     * <br>Example: http://localhost:2019/item/20
+     * @param updateItem An object containing values for just the item fields being updated.
+     * @param itemId The primary key of the item you want to update.
+     * @return A status of OK.
+     */
+    @PatchMapping(value = "/item/{itemId}", consumes = {"application/json"})
+    public ResponseEntity<?> updateItem(
+            @RequestBody Item updateItem,
+            @PathVariable long itemId) {
+        itemService.update(updateItem, itemId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Deletes a given item based on the itemId in the request URI.
+     * <br>Example: http://localhost:2019/item/20
+     * @param itemId The primary key of the item you wish to delete
+     * @return A status of OK
+     */
+    @DeleteMapping(value = "/item/{itemId}")
+    public ResponseEntity<?> deleteItemById(@PathVariable long itemId) {
+        itemService.deleteItemById(itemId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

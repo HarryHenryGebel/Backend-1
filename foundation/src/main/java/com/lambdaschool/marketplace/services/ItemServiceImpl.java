@@ -54,7 +54,7 @@ public class ItemServiceImpl implements ItemService {
   public List<Item> findByUserId(long userId) {
     List<Item> returnList = new ArrayList<>();
     itemRepository
-      .findByUserId(userId)
+      .findByUserUserId(userId)
       .iterator()
       .forEachRemaining(returnList::add);
     return returnList;

@@ -58,6 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(
                         () -> new RuntimeException("Category ID " + categoryId + " not found!")
                 );
+        categoryRepository.deleteById(categoryId);
     }
 
     /**

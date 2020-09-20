@@ -54,7 +54,7 @@ public class ItemServiceImpl implements ItemService {
   public List<Item> findByUserId(long userId) {
     List<Item> returnList = new ArrayList<>();
     itemRepository
-      .findByUserId(userId)
+      .findByUserUserId(userId)
       .iterator()
       .forEachRemaining(returnList::add);
     return returnList;
@@ -67,7 +67,7 @@ public class ItemServiceImpl implements ItemService {
   @Override
   public List<Item> findAllItems() {
     List<Item> returnList = new ArrayList<>();
-    itemRepository.findAllItems().iterator().forEachRemaining(returnList::add);
+    itemRepository.findAll().iterator().forEachRemaining(returnList::add);
     return returnList;
   }
 

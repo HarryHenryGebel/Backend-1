@@ -16,12 +16,5 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
    * @param userId the userId of the user assigned to each item
    * @return a list of items assigned to the user
    */
-  List<Item> findByUserId(long userId);
-
-  /**
-   * Find a list of all items
-   *
-   * @return a list of all items
-   */
-  List<Item> findAllItems();
+  List<Item> findByUserUserId(long userId);
 }

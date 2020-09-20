@@ -1,5 +1,8 @@
 package com.lambdaschool.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -20,6 +23,19 @@ public class Product extends Auditable {
    */
   @Column(nullable = false)
   private String name;
+
+  @OneToMany(
+    mappedBy = "product",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  @JsonIgnoreProperties(value = "item", allowSetters = true)
+  private Set<Item> items = new HashSet<>();
+
+  @ManyToOne
+  @JoinColumn(name = "subcategory_id", nullable = false)
+  @JsonIgnoreProperties(value = "products", allowSetters = true)
+  private Subcategory subcategory;
 
   /**
    * Default constructor used primarily by the JPA.

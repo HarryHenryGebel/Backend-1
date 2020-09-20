@@ -7,10 +7,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubcategoryRepository
-  extends CrudRepository<Subcategory, Long> {
-  /**
-   * Find a list of all subcategories
-   * @return a list of all subcategories
-   */
-  List<Subcategory> findAllSubcategories();
-}
+  extends CrudRepository<Subcategory, Long> {}

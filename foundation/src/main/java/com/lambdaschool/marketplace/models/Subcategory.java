@@ -25,15 +25,15 @@ public class Subcategory extends Auditable {
   private String name;
 
   @OneToMany(
-    mappedBy = "product",
+    mappedBy = "subcategory",
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
   @JsonIgnoreProperties(value = "product", allowSetters = true)
-  private List<Product> productList = new ArrayList<>();
+  private List<Product> products = new ArrayList<>();
 
   @ManyToOne
-  @JoinColumn(name = "categoryId", nullable = false)
+  @JoinColumn(name = "category_id", nullable = false)
   @JsonIgnoreProperties(value = "subcategoryList", allowSetters = true)
   private Category category;
 
@@ -94,17 +94,17 @@ public class Subcategory extends Auditable {
    *
    * @return the list of products (List<Product>) for this subcategory
    */
-  public List<Product> getProductList() {
-    return productList;
+  public List<Product> getProducts() {
+    return products;
   }
 
   /**
    * Setter for list of products for this category
    *
-   * @param productList the new list of subcategories (List<productList>) for this subcategory
+   * @param products the new list of subcategories (List<productList>) for this subcategory
    */
-  public void setProductList(List<Product> productList) {
-    this.productList = productList;
+  public void setProducts(List<Product> products) {
+    this.products = products;
   }
 
   /**

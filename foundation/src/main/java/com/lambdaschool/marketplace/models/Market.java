@@ -1,25 +1,36 @@
 package com.lambdaschool.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
- * The entity allowing interaction with the categories table
+ * The entity allowing interaction with the markets table
  */
 @Entity
 @Table(name = "markets")
 public class Market extends Auditable {
   /**
-   * The primary key (long) of the items table.
+   * The primary key (long) of the markets table.
    */
   @Id
   @GeneratedValue
   private long marketId;
 
   /**
-   * Item name. Cannot be null.
+   * Market name. Cannot be null.
    */
   @Column(nullable = false)
   private String name;
+
+  @OneToMany(
+    mappedBy = "market",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  @JsonIgnoreProperties(value = "item", allowSetters = true)
+  private Set<Item> items = new HashSet<>();
 
   /**
    * Default constructor used primarily by the JPA.
@@ -34,6 +45,14 @@ public class Market extends Auditable {
    */
   public Market(String name) {
     this.name = name;
+  }
+
+  public Set<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(Set<Item> items) {
+    this.items = items;
   }
 
   /**

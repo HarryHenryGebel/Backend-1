@@ -6,9 +6,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The entity allowing interaction with the categories table
+ */
 @Entity
 @Table(name = "categories")
-public class Category extends Auditable{
+public class Category extends Auditable {
     /**
      * The primary key (long) of the items table.
      */
@@ -73,7 +76,7 @@ public class Category extends Auditable{
     /**
      * Setter for item name
      *
-     * @param name (string) of the item
+     * @param name (string) of the category
      */
     public void setName(String name) {
         this.name = name;

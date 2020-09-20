@@ -3,21 +3,15 @@ package com.lambdaschool.marketplace.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * The entity allowing interaction with the users table
@@ -60,6 +54,10 @@ public class User extends Auditable {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties(value = "user", allowSetters = true)
   private Set<UserRoles> roles = new HashSet<>();
+
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnoreProperties(value = "user", allowSetters = true)
+  private List<Item> items = new ArrayList<>();
 
   /**
    * Default constructor used primarily by the JPA.
@@ -184,6 +182,24 @@ public class User extends Auditable {
    */
   public void setRoles(Set<UserRoles> roles) {
     this.roles = roles;
+  }
+
+  /**
+   * Getter for user items combinations
+   *
+   * @return A list of user item combinations associated with this user
+   */
+  public List<Item> getItems() {
+    return items;
+  }
+
+  /**
+   * Setter for user items combinations
+   *
+   * @param items Change the list of user item combinations associated with this user to this one
+   */
+  public void setItems(List<Item> items) {
+    this.items = items;
   }
 
   /**

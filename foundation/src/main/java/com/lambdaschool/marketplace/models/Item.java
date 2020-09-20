@@ -53,7 +53,7 @@ public class Item extends Auditable {
    * A market can have many items.
    */
   @ManyToOne
-  @JoinColumn(name = "marketId", nullable = false)
+  @JoinColumn(name = "market_id", nullable = false)
   @JsonIgnoreProperties(value = "market", allowSetters = true)
   private Market market;
 

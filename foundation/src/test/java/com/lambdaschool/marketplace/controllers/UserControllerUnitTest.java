@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
-import com.lambdaschool.marketplace.models.UserRoles;
+import com.lambdaschool.marketplace.models.UserRole;
 import com.lambdaschool.marketplace.services.UserService;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import java.util.ArrayList;
@@ -65,9 +65,9 @@ public class UserControllerUnitTest {
 
     // admin, data, user
     User u1 = new User("ILuvM4th!", "admin@lambdaschool.local", "Adimn");
-    u1.getRoles().add(new UserRoles(u1, r1));
-    u1.getRoles().add(new UserRoles(u1, r2));
-    u1.getRoles().add(new UserRoles(u1, r3));
+    u1.getRoles().add(new UserRole(u1, r1));
+    u1.getRoles().add(new UserRole(u1, r2));
+    u1.getRoles().add(new UserRole(u1, r3));
 
     u1.getUserEmails().add(new UserEmail(u1, "admin@email.local"));
     u1.getUserEmails().get(0).setUserEmailId(10);
@@ -80,8 +80,8 @@ public class UserControllerUnitTest {
 
     // data, user
     User u2 = new User("1234567", "cinnamon@lambdaschool.local", "Cinnamon");
-    u1.getRoles().add(new UserRoles(u2, r2));
-    u1.getRoles().add(new UserRoles(u2, r3));
+    u1.getRoles().add(new UserRole(u2, r2));
+    u1.getRoles().add(new UserRole(u2, r3));
 
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.local"));
     u2.getUserEmails().get(0).setUserEmailId(20);
@@ -101,7 +101,7 @@ public class UserControllerUnitTest {
       "testingbarn@school.lambda",
       "Test I. Barn"
     );
-    u3.getRoles().add(new UserRoles(u3, r1));
+    u3.getRoles().add(new UserRole(u3, r1));
 
     u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));
     u3.getUserEmails().get(0).setUserEmailId(30);
@@ -110,13 +110,13 @@ public class UserControllerUnitTest {
     userList.add(u3);
 
     User u4 = new User("password", "testingcat@school.lambda", "Mrs. T. Cat");
-    u4.getRoles().add(new UserRoles(u4, r2));
+    u4.getRoles().add(new UserRole(u4, r2));
 
     u4.setUserId(104);
     userList.add(u4);
 
     User u5 = new User("password", "testingdog@school.lambda", "Mr. T. I. Dog");
-    u4.getRoles().add(new UserRoles(u5, r2));
+    u4.getRoles().add(new UserRole(u5, r2));
 
     u5.setUserId(105);
     userList.add(u5);

@@ -2,7 +2,7 @@ package com.lambdaschool.marketplace.controllers;
 
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserMinimum;
-import com.lambdaschool.marketplace.models.UserRoles;
+import com.lambdaschool.marketplace.models.UserRole;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
 import java.net.URI;
@@ -72,8 +72,8 @@ public class OpenController {
     newUser.setPrimaryEmail(userMinimum.getPrimaryEmail());
 
     // add the default role of user
-    Set<UserRoles> newRoles = new HashSet<>();
-    newRoles.add(new UserRoles(newUser, roleService.findByName("user")));
+    Set<UserRole> newRoles = new HashSet<>();
+    newRoles.add(new UserRole(newUser, roleService.findByName("user")));
     newUser.setRoles(newRoles);
 
     newUser = userService.save(newUser);

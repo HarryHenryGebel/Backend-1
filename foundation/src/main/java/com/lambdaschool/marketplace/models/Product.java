@@ -52,6 +52,22 @@ public class Product extends Auditable {
     this.name = name;
   }
 
+  public Set<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(Set<Item> items) {
+    this.items = items;
+  }
+
+  public Subcategory getSubcategory() {
+    return subcategory;
+  }
+
+  public void setSubcategory(Subcategory subcategory) {
+    this.subcategory = subcategory;
+  }
+
   /**
    * Getter for productId
    *

@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_roles")
 @IdClass(UserRolesId.class)
-public class UserRoles extends Auditable implements Serializable {
+public class UserRole extends Auditable implements Serializable {
   /**
    * 1/2 of the primary key (long) for user_roles.
    * Also is a foreign key into the users table
@@ -46,7 +46,7 @@ public class UserRoles extends Auditable implements Serializable {
   /**
    * Default constructor used primarily by the JPA.
    */
-  public UserRoles() {}
+  public UserRole() {}
 
   /**
    * Given the params, create a new user role combination object
@@ -54,7 +54,7 @@ public class UserRoles extends Auditable implements Serializable {
    * @param user The user object of this relationship
    * @param role The role object of this relationship
    */
-  public UserRoles(User user, Role role) {
+  public UserRole(User user, Role role) {
     this.user = user;
     this.role = role;
   }
@@ -100,10 +100,10 @@ public class UserRoles extends Auditable implements Serializable {
     if (this == o) {
       return true;
     }
-    if (!(o instanceof UserRoles)) {
+    if (!(o instanceof UserRole)) {
       return false;
     }
-    UserRoles that = (UserRoles) o;
+    UserRole that = (UserRole) o;
     return (
       ((user == null) ? 0 : user.getUserId()) ==
       ((that.user == null) ? 0 : that.user.getUserId()) &&

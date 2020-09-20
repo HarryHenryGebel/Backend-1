@@ -1,4 +1,4 @@
-package com.lambdaschool.bookstore.config;
+package com.lambdaschool.marketplace.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

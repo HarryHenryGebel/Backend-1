@@ -3,7 +3,7 @@ package com.lambdaschool.marketplace.controllers;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.services.RoleService;
 import java.net.URI;
-import java.util.List;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -40,7 +40,7 @@ public class RolesController {
    */
   @GetMapping(value = "/roles", produces = "application/json")
   public ResponseEntity<?> listRoles() {
-    List<Role> allRoles = roleService.findAll();
+    Set<Role> allRoles = roleService.findAll();
     return new ResponseEntity<>(allRoles, HttpStatus.OK);
   }
 

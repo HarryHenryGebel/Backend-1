@@ -7,7 +7,7 @@ import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
-import com.lambdaschool.marketplace.models.UserRoles;
+import com.lambdaschool.marketplace.models.UserRole;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -84,7 +84,7 @@ public class UserServiceImplTest {
     r2.setRoleId(2);
 
     User u2 = new User("ILuvMath!", "tiger@school.lambda", "Tiger");
-    u2.getRoles().add(new UserRoles(u2, r2));
+    u2.getRoles().add(new UserRole(u2, r2));
     u2.getUserEmails().add(new UserEmail(u2, "tiger@tiger.local"));
 
     User saveU2 = userService.save(u2);
@@ -107,7 +107,7 @@ public class UserServiceImplTest {
     r2.setRoleId(2);
 
     User u2 = new User("password", "cinnamon@school.lambda", "Cinnamon");
-    u2.getRoles().add(new UserRoles(u2, r2));
+    u2.getRoles().add(new UserRole(u2, r2));
 
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));
@@ -134,7 +134,7 @@ public class UserServiceImplTest {
     r2.setRoleId(2);
 
     User u2 = new User("password", "cinnamon@school.lambda", "Also Cinnamon");
-    u2.getRoles().add(new UserRoles(u2, r2));
+    u2.getRoles().add(new UserRole(u2, r2));
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "bunny@email.thump"));

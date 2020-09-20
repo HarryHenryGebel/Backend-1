@@ -20,7 +20,7 @@ public class UserMinimum {
 
   /**
    * Return username - username is synonymous with email, so return email
-   * @return
+   * @return the user's email, which functions as their email
    */
   public String getUsername() {
     return primaryEmail;

@@ -2,9 +2,10 @@ package com.lambdaschool.marketplace.services;
 
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Category;
+import com.lambdaschool.marketplace.models.Subcategory;
 import com.lambdaschool.marketplace.repository.CategoryRepository;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +27,8 @@ public class CategoryServiceImpl implements CategoryService {
    * @return a list of all categories in the database
    */
   @Override
-  public List<Category> findAllCategories() {
-    List<Category> categoryList = new ArrayList<>();
+  public Set<Category> findAllCategories() {
+    Set<Category> categoryList = new HashSet<>();
     categoryRepository.findAll().iterator().forEachRemaining(categoryList::add);
     return categoryList;
   }
@@ -47,6 +48,32 @@ public class CategoryServiceImpl implements CategoryService {
             "Category ID " + categoryId + " not found!"
           )
       );
+  }
+
+  @Override
+  public Category save(Category category) {
+    Category newCategory = new Category();
+
+    if (category.getCategoryId() != 0) {
+      categoryRepository
+        .findById(category.getCategoryId())
+        .orElseThrow(
+          () ->
+            new ResourceNotFoundException(
+              "User id " + category.getCategoryId() + " not found!"
+            )
+        );
+      newCategory.setCategoryId(category.getCategoryId());
+    }
+
+    newCategory.setName(category.getName());
+
+    Set<Subcategory> subcategories = newCategory.getSubcategories();
+    for (Subcategory subcategory : category.getSubcategories()) subcategories.add(
+      new Subcategory(subcategory.getName())
+    );
+
+    return categoryRepository.save(newCategory);
   }
 
   /**

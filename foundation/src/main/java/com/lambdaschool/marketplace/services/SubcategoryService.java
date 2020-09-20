@@ -1,10 +1,10 @@
 package com.lambdaschool.marketplace.services;
 
 import com.lambdaschool.marketplace.models.Subcategory;
-import java.util.List;
+import java.util.Set;
 
 public interface SubcategoryService {
-  List<Subcategory> findAllSubcategories();
+  Set<Subcategory> findAllSubcategories();
 
   Subcategory findBySubcategoryId(long subcategoryId);
 

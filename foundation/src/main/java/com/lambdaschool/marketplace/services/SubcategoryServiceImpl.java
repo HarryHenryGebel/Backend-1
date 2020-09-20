@@ -3,8 +3,8 @@ package com.lambdaschool.marketplace.services;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Subcategory;
 import com.lambdaschool.marketplace.repository.SubcategoryRepository;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +26,8 @@ public class SubcategoryServiceImpl implements SubcategoryService {
    * @return a list of all subcategories in the database
    */
   @Override
-  public List<Subcategory> findAllSubcategories() {
-    List<Subcategory> subcategoryList = new ArrayList<>();
+  public Set<Subcategory> findAllSubcategories() {
+    Set<Subcategory> subcategoryList = new HashSet<>();
     subcategoryRepository
       .findAll()
       .iterator()

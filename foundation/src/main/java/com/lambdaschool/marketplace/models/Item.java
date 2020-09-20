@@ -65,7 +65,7 @@ public class Item extends Auditable {
    * A product can have many items.
    */
   @ManyToOne
-  @JoinColumn(name = "productId", nullable = false)
+  @JoinColumn(name = "product_id", nullable = false)
   @JsonIgnoreProperties(value = "product", allowSetters = true)
   private Product product;
 

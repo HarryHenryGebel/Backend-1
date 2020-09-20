@@ -1,5 +1,7 @@
 package com.lambdaschool.marketplace.models;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -20,6 +22,13 @@ public class Product extends Auditable {
    */
   @Column(nullable = false)
   private String name;
+
+  @OneToMany(
+    mappedBy = "product",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true
+  )
+  private Set<Product> products = new HashSet<>();
 
   /**
    * Default constructor used primarily by the JPA.

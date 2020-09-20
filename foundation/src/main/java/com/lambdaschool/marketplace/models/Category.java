@@ -30,7 +30,7 @@ public class Category extends Auditable {
     orphanRemoval = true
   )
   @JsonIgnoreProperties(value = "subcategory", allowSetters = true)
-  private List<Subcategory> subcategoryList = new ArrayList<>();
+  private List<Subcategory> subcategories = new ArrayList<>();
 
   /**
    * Default constructor used primarily by the JPA.
@@ -89,16 +89,16 @@ public class Category extends Auditable {
    *
    * @return the list of subcategories (List<Subcategory>) for this category
    */
-  public List<Subcategory> getSubcategoryList() {
-    return subcategoryList;
+  public List<Subcategory> getSubcategories() {
+    return subcategories;
   }
 
   /**
    * Setter for list of subcategories for this category
    *
-   * @param subcategoryList the new list of subcategories (List<Subcategory>) for this category
+   * @param subcategories the new list of subcategories (List<Subcategory>) for this category
    */
-  public void setSubcategoryList(List<Subcategory> subcategoryList) {
-    this.subcategoryList = subcategoryList;
+  public void setSubcategories(List<Subcategory> subcategories) {
+    this.subcategories = subcategories;
   }
 }

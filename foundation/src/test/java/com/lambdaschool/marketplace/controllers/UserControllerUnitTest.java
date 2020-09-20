@@ -64,7 +64,7 @@ public class UserControllerUnitTest {
     r3.setRoleId(3);
 
     // admin, data, user
-    User u1 = new User("ILuvM4th!", "admin@lambdaschool.local");
+    User u1 = new User("ILuvM4th!", "admin@lambdaschool.local", "Adimn");
     u1.getRoles().add(new UserRoles(u1, r1));
     u1.getRoles().add(new UserRoles(u1, r2));
     u1.getRoles().add(new UserRoles(u1, r3));
@@ -79,7 +79,7 @@ public class UserControllerUnitTest {
     userList.add(u1);
 
     // data, user
-    User u2 = new User("1234567", "cinnamon@lambdaschool.local");
+    User u2 = new User("1234567", "cinnamon@lambdaschool.local", "Cinnamon");
     u1.getRoles().add(new UserRoles(u2, r2));
     u1.getRoles().add(new UserRoles(u2, r3));
 
@@ -96,7 +96,7 @@ public class UserControllerUnitTest {
     userList.add(u2);
 
     // user
-    User u3 = new User("ILuvM4th!", "testingbarn@school.lambda");
+    User u3 = new User("ILuvM4th!", "testingbarn@school.lambda", "Test I. Barn");
     u3.getRoles().add(new UserRoles(u3, r1));
 
     u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));
@@ -105,13 +105,13 @@ public class UserControllerUnitTest {
     u3.setUserId(103);
     userList.add(u3);
 
-    User u4 = new User("password", "testingcat@school.lambda");
+    User u4 = new User("password", "testingcat@school.lambda", "Mrs. T. Cat");
     u4.getRoles().add(new UserRoles(u4, r2));
 
     u4.setUserId(104);
     userList.add(u4);
 
-    User u5 = new User("password", "testingdog@school.lambda");
+    User u5 = new User("password", "testingdog@school.lambda", "Mr. T. I. Dog");
     u4.getRoles().add(new UserRoles(u5, r2));
 
     u5.setUserId(105);

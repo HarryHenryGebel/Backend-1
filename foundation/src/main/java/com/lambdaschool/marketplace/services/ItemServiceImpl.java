@@ -69,10 +69,9 @@ public class ItemServiceImpl implements ItemService {
      * Finds the specified item based on the itemId provided
      * @param itemId the itemId associated with the object you seek
      * @return returns the item object associated with the provided itemId
-     * @throws ResourceNotFoundException
      */
     @Override
-    public Item findItemById(long itemId) throws ResourceNotFoundException{
+    public Item findItemById(long itemId) {
         return itemRepository.findById(itemId)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Item ID " + itemId + " not found!")
@@ -167,11 +166,10 @@ public class ItemServiceImpl implements ItemService {
     /**
      * Removes an item from the database based on the itemId provided
      * @param itemId The primary key (long) of the item to be removed
-     * @throws EntityNotFoundException
      */
     @Transactional
     @Override
-    public void deleteItemById(long itemId) throws EntityNotFoundException {
+    public void deleteItemById(long itemId) {
         itemRepository.findById(itemId)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Item number " + itemId + " not found!")

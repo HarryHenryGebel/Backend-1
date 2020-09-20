@@ -96,7 +96,11 @@ public class UserControllerUnitTest {
     userList.add(u2);
 
     // user
-    User u3 = new User("ILuvM4th!", "testingbarn@school.lambda", "Test I. Barn");
+    User u3 = new User(
+      "ILuvM4th!",
+      "testingbarn@school.lambda",
+      "Test I. Barn"
+    );
     u3.getRoles().add(new UserRoles(u3, r1));
 
     u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));

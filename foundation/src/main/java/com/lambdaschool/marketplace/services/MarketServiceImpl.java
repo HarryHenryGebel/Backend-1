@@ -28,10 +28,7 @@ public class MarketServiceImpl implements MarketService {
   @Override
   public List<Market> findAllMarkets() {
     List<Market> marketList = new ArrayList<>();
-    marketRepository
-      .findAll()
-      .iterator()
-      .forEachRemaining(marketList::add);
+    marketRepository.findAll().iterator().forEachRemaining(marketList::add);
     return marketList;
   }
 
@@ -46,9 +43,7 @@ public class MarketServiceImpl implements MarketService {
       .findById(marketId)
       .orElseThrow(
         () ->
-          new ResourceNotFoundException(
-            "Market ID " + marketId + " not found!"
-          )
+          new ResourceNotFoundException("Market ID " + marketId + " not found!")
       );
   }
 

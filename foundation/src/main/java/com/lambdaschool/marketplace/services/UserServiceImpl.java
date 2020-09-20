@@ -1,5 +1,7 @@
 package com.lambdaschool.marketplace.services;
 
+import static com.lambdaschool.marketplace.Utility.optionallyReplace;
+
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
@@ -49,9 +51,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findByNameContaining(String username) {
-    return userRepository.findByPrimaryEmailContainingIgnoreCase(
-      username.toLowerCase()
-    );
+    return userRepository.findByPrimaryEmailContaining(username.toLowerCase());
   }
 
   @Override
@@ -68,11 +68,7 @@ public class UserServiceImpl implements UserService {
   @Transactional
   @Override
   public void delete(long id) {
-    userRepository
-      .findById(id)
-      .orElseThrow(
-        () -> new ResourceNotFoundException("User id " + id + " not found!")
-      );
+    findUserById(id); // check for id existence
     userRepository.deleteById(id);
   }
 
@@ -103,17 +99,19 @@ public class UserServiceImpl implements UserService {
     }
 
     newUser.setPasswordNoEncrypt(user.getPassword());
-    newUser.setPrimaryEmail(user.getPrimaryEmail().toLowerCase());
+    newUser.setPrimaryEmail(user.getPrimaryEmail());
 
     newUser.getRoles().clear();
-    for (UserRoles ur : user.getRoles()) {
-      Role addRole = roleService.findRoleById(ur.getRole().getRoleId());
+    for (UserRoles role : user.getRoles()) {
+      Role addRole = roleService.findRoleById(role.getRole().getRoleId());
       newUser.getRoles().add(new UserRoles(newUser, addRole));
     }
 
     newUser.getUserEmails().clear();
-    for (UserEmail ue : user.getUserEmails()) {
-      newUser.getUserEmails().add(new UserEmail(newUser, ue.getUserEmail()));
+    for (UserEmail userEmail : user.getUserEmails()) {
+      newUser
+        .getUserEmails()
+        .add(new UserEmail(newUser, userEmail.getUserEmail()));
     }
 
     return userRepository.save(newUser);
@@ -124,41 +122,42 @@ public class UserServiceImpl implements UserService {
   public User update(User user, long id) {
     User currentUser = findUserById(id);
 
-    if (helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername())) {
-      if (user.getPassword() != null) {
-        currentUser.setPasswordNoEncrypt(user.getPassword());
-      }
+    // TODO Test this method call!!!!
+    if (
+      !helperFunctions.isAuthorizedToMakeChange(currentUser.getUsername())
+    ) throw new ResourceNotFoundException( // to recognize that this exception can be thrown // note we should never get to this line but is needed for the compiler
+      "This user is not authorized to make change"
+    );
 
-      if (user.getPrimaryEmail() != null) {
-        currentUser.setPrimaryEmail(user.getPrimaryEmail().toLowerCase());
-      }
-
-      if (user.getRoles().size() > 0) {
-        currentUser.getRoles().clear();
-        for (UserRoles ur : user.getRoles()) {
-          Role addRole = roleService.findRoleById(ur.getRole().getRoleId());
-
-          currentUser.getRoles().add(new UserRoles(currentUser, addRole));
-        }
-      }
-
-      if (user.getUserEmails().size() > 0) {
-        currentUser.getUserEmails().clear();
-        for (UserEmail ue : user.getUserEmails()) {
-          currentUser
-            .getUserEmails()
-            .add(new UserEmail(currentUser, ue.getUserEmail()));
-        }
-      }
-
-      return userRepository.save(currentUser);
-    } else {
-      // note we should never get to this line but is needed for the compiler
-      // to recognize that this exception can be thrown
-      throw new ResourceNotFoundException(
-        "This user is not authorized to make change"
-      );
+    if (user.getPassword() != null) {
+      currentUser.setPasswordNoEncrypt(user.getPassword());
     }
+
+    currentUser.setPrimaryEmail(
+      (String) optionallyReplace(
+        currentUser.getPrimaryEmail(),
+        user.getPrimaryEmail()
+      )
+    );
+
+    if (user.getRoles().size() > 0) {
+      currentUser.getRoles().clear();
+      for (UserRoles role : user.getRoles()) {
+        Role addRole = roleService.findRoleById(role.getRole().getRoleId());
+        currentUser.getRoles().add(new UserRoles(currentUser, addRole));
+      }
+    }
+
+    if (user.getUserEmails().size() > 0) {
+      currentUser.getUserEmails().clear();
+      for (UserEmail userEmail : user.getUserEmails()) {
+        currentUser
+          .getUserEmails()
+          .add(new UserEmail(currentUser, userEmail.getUserEmail()));
+      }
+    }
+
+    return userRepository.save(currentUser);
   }
 
   @Transactional

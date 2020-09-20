@@ -83,7 +83,7 @@ public class UserServiceImplTest {
     Role r2 = new Role("user");
     r2.setRoleId(2);
 
-    User u2 = new User("ILuvMath!", "tiger@school.lambda");
+    User u2 = new User("ILuvMath!", "tiger@school.lambda", "Tiger");
     u2.getRoles().add(new UserRoles(u2, r2));
     u2.getUserEmails().add(new UserEmail(u2, "tiger@tiger.local"));
 
@@ -106,7 +106,7 @@ public class UserServiceImplTest {
     Role r2 = new Role("user");
     r2.setRoleId(2);
 
-    User u2 = new User("password", "cinnamon@school.lambda");
+    User u2 = new User("password", "cinnamon@school.lambda", "Cinnamon");
     u2.getRoles().add(new UserRoles(u2, r2));
 
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
@@ -133,7 +133,7 @@ public class UserServiceImplTest {
     Role r2 = new Role("user");
     r2.setRoleId(2);
 
-    User u2 = new User("password", "cinnamon@school.lambda");
+    User u2 = new User("password", "cinnamon@school.lambda", "Also Cinnamon");
     u2.getRoles().add(new UserRoles(u2, r2));
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.thump"));
     u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.thump"));

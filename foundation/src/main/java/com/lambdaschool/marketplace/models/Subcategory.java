@@ -25,7 +25,7 @@ public class Subcategory extends Auditable {
   private String name;
 
   @OneToMany(
-    mappedBy = "product",
+    mappedBy = "subcategory",
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
@@ -33,7 +33,7 @@ public class Subcategory extends Auditable {
   private List<Product> productList = new ArrayList<>();
 
   @ManyToOne
-  @JoinColumn(name = "categoryId", nullable = false)
+  @JoinColumn(name = "category_id", nullable = false)
   @JsonIgnoreProperties(value = "subcategoryList", allowSetters = true)
   private Category category;
 

@@ -25,7 +25,7 @@ public class Category extends Auditable {
   private String name;
 
   @OneToMany(
-    mappedBy = "subcategory",
+    mappedBy = "category",
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )

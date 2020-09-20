@@ -29,8 +29,13 @@ public class Product extends Auditable {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  @JsonIgnoreProperties(value = "product", allowSetters = true)
-  private Set<Product> products = new HashSet<>();
+  @JsonIgnoreProperties(value = "item", allowSetters = true)
+  private Set<Item> items = new HashSet<>();
+
+  @ManyToOne
+  @JoinColumn(name = "subcategory_id", nullable = false)
+  @JsonIgnoreProperties(value = "products", allowSetters = true)
+  private Subcategory subcategory;
 
   /**
    * Default constructor used primarily by the JPA.

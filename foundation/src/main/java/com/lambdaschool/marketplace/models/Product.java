@@ -1,5 +1,6 @@
 package com.lambdaschool.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Product extends Auditable {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
+  @JsonIgnoreProperties(value = "product", allowSetters = true)
   private Set<Product> products = new HashSet<>();
 
   /**

@@ -57,7 +57,7 @@ public class User extends Auditable {
    */
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties(value = "user", allowSetters = true)
-  private Set<UserRoles> roles = new HashSet<>();
+  private Set<UserRole> roles = new HashSet<>();
 
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties(value = "user", allowSetters = true)
@@ -85,7 +85,7 @@ public class User extends Auditable {
   /**
    * Set the user's full name, or any other name they would like to be addressed
    * by.
-   * @return
+   * @return The user's preferred full name
    */
   public String getName() {
     return name;
@@ -93,7 +93,7 @@ public class User extends Auditable {
 
   /**
    *
-   * @param name
+   * @param name The user's preferred full name
    */
   public void setName(String name) {
     this.name = name;
@@ -193,7 +193,7 @@ public class User extends Auditable {
    *
    * @return A list of user role combinations associated with this user
    */
-  public Set<UserRoles> getRoles() {
+  public Set<UserRole> getRoles() {
     return roles;
   }
 
@@ -202,7 +202,7 @@ public class User extends Auditable {
    *
    * @param roles Change the list of user role combinations associated with this user to this one
    */
-  public void setRoles(Set<UserRoles> roles) {
+  public void setRoles(Set<UserRole> roles) {
     this.roles = roles;
   }
 
@@ -234,7 +234,7 @@ public class User extends Auditable {
   public List<SimpleGrantedAuthority> getAuthority() {
     List<SimpleGrantedAuthority> rtnList = new ArrayList<>();
 
-    for (UserRoles r : this.roles) {
+    for (UserRole r : this.roles) {
       String myRole = "ROLE_" + r.getRole().getName().toUpperCase();
       rtnList.add(new SimpleGrantedAuthority(myRole));
     }

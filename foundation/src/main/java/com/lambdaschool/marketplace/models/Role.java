@@ -37,7 +37,7 @@ public class Role extends Auditable {
    */
   @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
   @JsonIgnoreProperties(value = "role", allowSetters = true)
-  private Set<UserRoles> users = new HashSet<>();
+  private Set<UserRole> users = new HashSet<>();
 
   /**
    * Default Constructor used primarily by the JPA.
@@ -94,7 +94,7 @@ public class Role extends Auditable {
    *
    * @return A list of user role combinations associated with this role
    */
-  public Set<UserRoles> getUsers() {
+  public Set<UserRole> getUsers() {
     return users;
   }
 
@@ -103,7 +103,7 @@ public class Role extends Auditable {
    *
    * @param users Change the list of user role combinations associated with this role to this one
    */
-  public void setUsers(Set<UserRoles> users) {
+  public void setUsers(Set<UserRole> users) {
     this.users = users;
   }
 }

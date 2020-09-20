@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  * Spring Boot provides a way to say that this class is a "parent" class whose fields will be included in the child class.
  * The child class is the one that forms the entity for the database.
  * @EntityListeners - When an entity is accessed by the Spring Framework, the argument of the Entity Listener annotation is fired.
- * Thus this annotiation is "listening" for when an entity is accessed and then performs its argument.
+ * Thus this annotation is "listening" for when an entity is accessed and then performs its argument.
  * AuditingEntityListener.class - The class that captures the data for and updates the annotations used in auditing -
  * CreatedBy, CreatedDate, ModifiedBy, ModifiedDate
  */

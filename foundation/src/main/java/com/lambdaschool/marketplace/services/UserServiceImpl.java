@@ -6,10 +6,11 @@ import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
-import com.lambdaschool.marketplace.models.UserRoles;
+import com.lambdaschool.marketplace.models.UserRole;
 import com.lambdaschool.marketplace.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,10 +102,10 @@ public class UserServiceImpl implements UserService {
     newUser.setPasswordNoEncrypt(user.getPassword());
     newUser.setPrimaryEmail(user.getPrimaryEmail());
 
-    newUser.getRoles().clear();
-    for (UserRoles role : user.getRoles()) {
+    Set<UserRole> roles = newUser.getRoles();
+    for (UserRole role : user.getRoles()) {
       Role addRole = roleService.findRoleById(role.getRole().getRoleId());
-      newUser.getRoles().add(new UserRoles(newUser, addRole));
+      roles.add(new UserRole(newUser, addRole));
     }
 
     newUser.getUserEmails().clear();
@@ -142,9 +143,9 @@ public class UserServiceImpl implements UserService {
 
     if (user.getRoles().size() > 0) {
       currentUser.getRoles().clear();
-      for (UserRoles role : user.getRoles()) {
+      for (UserRole role : user.getRoles()) {
         Role addRole = roleService.findRoleById(role.getRole().getRoleId());
-        currentUser.getRoles().add(new UserRoles(currentUser, addRole));
+        currentUser.getRoles().add(new UserRole(currentUser, addRole));
       }
     }
 

@@ -1,7 +1,7 @@
 package com.lambdaschool.marketplace.services;
 
 import com.lambdaschool.marketplace.models.Role;
-import java.util.List;
+import java.util.Set;
 
 /**
  * The service that works with the Role Model.
@@ -14,7 +14,7 @@ public interface RoleService {
    *
    * @return list of all Role object
    */
-  List<Role> findAll();
+  Set<Role> findAll();
 
   /**
    * Return the first Role matching the given primary key

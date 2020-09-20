@@ -3,7 +3,7 @@ package com.lambdaschool.marketplace;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
-import com.lambdaschool.marketplace.models.UserRoles;
+import com.lambdaschool.marketplace.models.UserRole;
 import com.lambdaschool.marketplace.services.RoleService;
 import com.lambdaschool.marketplace.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +56,9 @@ public class SeedData implements CommandLineRunner {
 
     // admin, data, user
     User u1 = new User("password", "admin@lambdaschool.local", "Admin");
-    u1.getRoles().add(new UserRoles(u1, r1));
-    u1.getRoles().add(new UserRoles(u1, r2));
-    u1.getRoles().add(new UserRoles(u1, r3));
+    u1.getRoles().add(new UserRole(u1, r1));
+    u1.getRoles().add(new UserRole(u1, r2));
+    u1.getRoles().add(new UserRole(u1, r3));
     u1.getUserEmails().add(new UserEmail(u1, "admin@email.local"));
     u1.getUserEmails().add(new UserEmail(u1, "admin@mymail.local"));
 
@@ -66,8 +66,8 @@ public class SeedData implements CommandLineRunner {
 
     // data, user
     User u2 = new User("1234567", "cinnamon@lambdaschool.local", "Cinnamon");
-    u2.getRoles().add(new UserRoles(u2, r2));
-    u2.getRoles().add(new UserRoles(u2, r3));
+    u2.getRoles().add(new UserRole(u2, r2));
+    u2.getRoles().add(new UserRole(u2, r3));
     u2.getUserEmails().add(new UserEmail(u2, "cinnamon@mymail.local"));
     u2.getUserEmails().add(new UserEmail(u2, "hops@mymail.local"));
     u2.getUserEmails().add(new UserEmail(u2, "bunny@email.local"));
@@ -79,16 +79,16 @@ public class SeedData implements CommandLineRunner {
       "barnbarn@lambdaschool.local",
       "Barnamum Barnamim"
     );
-    u3.getRoles().add(new UserRoles(u3, r2));
+    u3.getRoles().add(new UserRole(u3, r2));
     u3.getUserEmails().add(new UserEmail(u3, "barnbarn@email.local"));
     userService.save(u3);
 
     User u4 = new User("password", "puttat@school.lambda", "Putt At");
-    u4.getRoles().add(new UserRoles(u4, r2));
+    u4.getRoles().add(new UserRole(u4, r2));
     userService.save(u4);
 
     User u5 = new User("password", "misskitty@school.lambda", "Miss Kitty");
-    u5.getRoles().add(new UserRoles(u5, r2));
+    u5.getRoles().add(new UserRole(u5, r2));
     userService.save(u5);
   }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.persistence.Embeddable;
 
 /**
- * Class to represent the complex primary key for UserRoles
+ * Class to represent the complex primary key for UserRole
  */
 @Embeddable
 public class UserRolesId implements Serializable {

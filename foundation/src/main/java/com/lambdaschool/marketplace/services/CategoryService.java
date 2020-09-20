@@ -1,12 +1,14 @@
 package com.lambdaschool.marketplace.services;
 
 import com.lambdaschool.marketplace.models.Category;
-import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
-  List<Category> findAllCategories();
+  Set<Category> findAllCategories();
 
   Category findByCategoryId(long categoryId);
+
+  Category save(Category category);
 
   void delete(long categoryId);
 

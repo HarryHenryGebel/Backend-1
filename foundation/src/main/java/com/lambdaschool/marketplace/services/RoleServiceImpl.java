@@ -4,8 +4,8 @@ import com.lambdaschool.marketplace.exceptions.ResourceFoundException;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.repository.RoleRepository;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,8 +34,8 @@ public class RoleServiceImpl implements RoleService {
   }
 
   @Override
-  public List<Role> findAll() {
-    List<Role> list = new ArrayList<>();
+  public Set<Role> findAll() {
+    Set<Role> list = new HashSet<>();
     /*
      * findAll returns an iterator set.
      * iterate over the iterator set and add each element to an array list.

@@ -54,7 +54,7 @@ public class Item extends Auditable {
    */
   @ManyToOne
   @JoinColumn(name = "market_id", nullable = false)
-  @JsonIgnoreProperties(value = "market", allowSetters = true)
+  @JsonIgnoreProperties(value = "items", allowSetters = true)
   private Market market;
 
   /**
@@ -66,7 +66,7 @@ public class Item extends Auditable {
    */
   @ManyToOne
   @JoinColumn(name = "product_id", nullable = false)
-  @JsonIgnoreProperties(value = "product", allowSetters = true)
+  @JsonIgnoreProperties(value = "items", allowSetters = true)
   private Product product;
 
   /**

@@ -3,10 +3,12 @@ package com.lambdaschool.marketplace.services;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Product;
 import com.lambdaschool.marketplace.repository.ProductRepository;
-import java.util.ArrayList;
-import java.util.List;
+import com.lambdaschool.marketplace.views.ProductCategoryList;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service(value = "productService")
@@ -19,6 +21,12 @@ public class ProductServiceImpl implements ProductService {
 
   public ProductServiceImpl(ProductRepository productRepository) {
     this.productRepository = productRepository;
+  }
+
+  @Override
+  public List<ProductCategoryList> getProductCategoryList() {
+    List<ProductCategoryList> returnList = productRepository.getProductCategoryList();
+    return returnList;
   }
 
   /**

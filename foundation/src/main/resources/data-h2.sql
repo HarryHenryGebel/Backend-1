@@ -318,4 +318,17 @@ VALUES (1, 1, 'Eggs', 348, CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURREN
        (41, 117, 'Spring Onions', 884, CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURRENT_TIMESTAMP),
        (42, 118, 'Tomatoes', 166, CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURRENT_TIMESTAMP);
 
+INSERT INTO ITEMS (ITEM_ID, NAME, DESCRIPTION ,PRICE, MARKET_ID,
+                   PRODUCT_ID, USER_ID,
+                   CREATED_BY, CREATED_DATE, LAST_MODIFIED_BY, LAST_MODIFIED_DATE)
+VALUES (1, 'Egg Sale!', 'Eggs for 200 Shillings per unit', 400, 1,
+        1, 1,
+        CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURRENT_TIMESTAMP),
+       (2, 'Best Milk!', 'Fresh milk only!', 350, 2,
+        4, 2,
+        CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURRENT_TIMESTAMP),
+       (3, 'Delicious Honey!', 'Our happy bees make happy honey!', 1100, 3,
+        6, 3,
+        CURRENT_USER, CURRENT_TIMESTAMP, CURRENT_USER, CURRENT_TIMESTAMP);
+
 alter sequence hibernate_sequence restart with 200;

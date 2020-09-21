@@ -4,11 +4,12 @@ import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Item;
 import com.lambdaschool.marketplace.repository.ItemRepository;
 import com.lambdaschool.marketplace.repository.UserRepository;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements ItemService Interface
@@ -182,13 +183,24 @@ public class ItemServiceImpl implements ItemService {
   @Transactional
   @Override
   public void deleteItemById(long itemId) {
-    itemRepository
-      .findById(itemId)
-      .orElseThrow(
-        () ->
-          new EntityNotFoundException("Item number " + itemId + " not found!")
-      );
-    itemRepository.deleteById(itemId);
+    Item item = itemRepository
+            .findById(itemId)
+            .orElseThrow(
+                    () ->
+                            new EntityNotFoundException("Item number " + itemId + " not found!")
+            );
+    // Check if the current user is authorized to make the change
+    if (helperFunctions.isAuthorizedToMakeChange(item.getUser().getUsername())
+    ) {
+      // Remove the item
+      itemRepository.deleteById(itemId);
+    } else {
+        // note we should never get to this line but is needed for the compiler
+        // to recognize that this exception can be thrown
+        throw new ResourceNotFoundException(
+                "This user is not authorized to make change"
+        );
+    }
   }
 
   /**

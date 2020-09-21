@@ -59,6 +59,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
       .antMatchers(
         "/users/**",
         "/user_emails/**",
+        "/items",
+        "/item/**",
+        "/user/items",
         "/oauth/revoke-token",
         "/logout"
       )

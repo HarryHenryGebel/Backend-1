@@ -1,5 +1,6 @@
 package com.lambdaschool.marketplace.services;
 
+import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.ValidationError;
 import java.util.List;
 
@@ -24,4 +25,10 @@ public interface HelperFunctions {
    * @return true if the user can make the modifications, otherwise an exception is thrown
    */
   boolean isAuthorizedToMakeChange(String username);
+
+  /**
+   * Return the currently logged in User
+   * @return The currently logged in User
+   */
+  User getCurrentUser();
 }

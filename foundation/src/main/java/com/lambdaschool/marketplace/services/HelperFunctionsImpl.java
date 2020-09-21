@@ -1,7 +1,9 @@
 package com.lambdaschool.marketplace.services;
 
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
+import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.ValidationError;
+import com.lambdaschool.marketplace.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.ConstraintViolation;
@@ -13,6 +15,11 @@ import org.springframework.stereotype.Service;
 
 @Service(value = "helperFunctions")
 public class HelperFunctionsImpl implements HelperFunctions {
+  private final UserRepository userRepository;
+
+  public HelperFunctionsImpl(UserRepository userRepository) {
+    this.userRepository = userRepository;
+  }
 
   @SuppressWarnings("rawtypes")
   public List<ValidationError> getConstraintViolation(Throwable cause) {
@@ -63,6 +70,18 @@ public class HelperFunctionsImpl implements HelperFunctions {
       throw new ResourceNotFoundException(
         authentication.getName() + " not authorized to make change"
       );
+    }
+  }
+
+  @Override
+  public User getCurrentUser() {
+    {
+      Authentication authentication = SecurityContextHolder
+        .getContext()
+        .getAuthentication();
+
+      String primaryEmail = authentication.getName();
+      return userRepository.findByPrimaryEmail(primaryEmail);
     }
   }
 }

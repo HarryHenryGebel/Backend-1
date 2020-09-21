@@ -1,9 +1,10 @@
 package com.lambdaschool.marketplace.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
 
 /**
  * The entity allowing interaction with the categories table
@@ -29,7 +30,7 @@ public class Category extends Auditable {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  @JsonIgnoreProperties(value = "subcategory", allowSetters = true)
+  @JsonIgnoreProperties(value = "category", allowSetters = true)
   private Set<Subcategory> subcategories = new HashSet<>();
 
   /**

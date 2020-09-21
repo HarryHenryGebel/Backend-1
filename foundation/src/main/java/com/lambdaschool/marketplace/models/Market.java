@@ -1,9 +1,10 @@
 package com.lambdaschool.marketplace.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
 
 /**
  * The entity allowing interaction with the markets table
@@ -29,7 +30,7 @@ public class Market extends Auditable {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  @JsonIgnoreProperties(value = "item", allowSetters = true)
+  @JsonIgnoreProperties(value = "market", allowSetters = true)
   private Set<Item> items = new HashSet<>();
 
   /**

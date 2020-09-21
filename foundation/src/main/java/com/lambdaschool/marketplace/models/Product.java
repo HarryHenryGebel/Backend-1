@@ -1,10 +1,10 @@
 package com.lambdaschool.marketplace.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.*;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * The entity allowing interaction with the categories table
@@ -35,7 +35,7 @@ public class Product extends Auditable {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  @JsonIgnoreProperties(value = "item", allowSetters = true)
+  @JsonIgnoreProperties(value = "product", allowSetters = true)
   private Set<Item> items = new HashSet<>();
 
   @ManyToOne

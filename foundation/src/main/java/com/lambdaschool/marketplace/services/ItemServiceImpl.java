@@ -3,13 +3,11 @@ package com.lambdaschool.marketplace.services;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Item;
 import com.lambdaschool.marketplace.repository.ItemRepository;
-import com.lambdaschool.marketplace.repository.UserRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implements ItemService Interface
@@ -24,12 +22,6 @@ public class ItemServiceImpl implements ItemService {
   private final ItemRepository itemRepository;
 
   /**
-   * Connects this service to the Users table
-   * Used in place of @Autowire
-   */
-  private final UserRepository userRepository;
-
-  /**
    * Connects this service to the HelpFunctions service
    * Used in place of @Autowire
    */
@@ -37,12 +29,10 @@ public class ItemServiceImpl implements ItemService {
 
   public ItemServiceImpl(
     ItemRepository itemRepository,
-    HelperFunctions helperFunctions,
-    UserRepository userRepository
+    HelperFunctions helperFunctions
   ) {
     this.itemRepository = itemRepository;
     this.helperFunctions = helperFunctions;
-    this.userRepository = userRepository;
   }
 
   /**
@@ -97,28 +87,14 @@ public class ItemServiceImpl implements ItemService {
     // Create a new item object
     Item newItem = new Item();
 
-    // Find the User associated with the new item
-    if (item.getUser() != null) {
-      userRepository
-        .findById(item.getUser().getUserId())
-        .orElseThrow(
-          () ->
-            new ResourceNotFoundException(
-              "User id " + item.getUser().getUserId() + " not " + "found!"
-            )
-        );
-      newItem.setUser(item.getUser());
-    }
-
-    // Set the item's name, description and price
+    // Set local fields
     newItem.setName(item.getName());
     newItem.setDescription(item.getDescription());
     newItem.setPrice(item.getPrice());
 
-    // Set the item's market
+    // Set joins
+    newItem.setUser(item.getUser());
     newItem.setMarket(item.getMarket());
-
-    // Set the item's product (category
     newItem.setProduct(item.getProduct());
 
     return itemRepository.save(newItem);
@@ -184,22 +160,23 @@ public class ItemServiceImpl implements ItemService {
   @Override
   public void deleteItemById(long itemId) {
     Item item = itemRepository
-            .findById(itemId)
-            .orElseThrow(
-                    () ->
-                            new EntityNotFoundException("Item number " + itemId + " not found!")
-            );
+      .findById(itemId)
+      .orElseThrow(
+        () ->
+          new EntityNotFoundException("Item number " + itemId + " not found!")
+      );
     // Check if the current user is authorized to make the change
-    if (helperFunctions.isAuthorizedToMakeChange(item.getUser().getUsername())
+    if (
+      helperFunctions.isAuthorizedToMakeChange(item.getUser().getUsername())
     ) {
       // Remove the item
       itemRepository.deleteById(itemId);
     } else {
-        // note we should never get to this line but is needed for the compiler
-        // to recognize that this exception can be thrown
-        throw new ResourceNotFoundException(
-                "This user is not authorized to make change"
-        );
+      // note we should never get to this line but is needed for the compiler
+      // to recognize that this exception can be thrown
+      throw new ResourceNotFoundException(
+        "This user is not authorized to make change"
+      );
     }
   }
 

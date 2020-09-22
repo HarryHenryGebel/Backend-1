@@ -61,6 +61,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         "/users/**",
         "/user_emails/**",
         "/item/**",
+        "/products",
+        "/markets",
         "/user/items",
         "/oauth/revoke-token",
         "/logout"

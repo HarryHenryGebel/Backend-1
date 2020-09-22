@@ -83,7 +83,7 @@ public class OpenController {
     HttpHeaders responseHeaders = new HttpHeaders();
     URI newUserURI = ServletUriComponentsBuilder
       .fromUriString(
-        httpServletRequest.getServerName() +
+        "localhost" +
         ":" +
         httpServletRequest.getLocalPort() +
         "/users/user/{userId}"
@@ -96,8 +96,7 @@ public class OpenController {
     // To get the access token, surf to the endpoint /login just as if a client had done this.
     RestTemplate restTemplate = new RestTemplate();
     String requestURI =
-      "http://" +
-      httpServletRequest.getServerName() +
+      "http://localhost" +
       ":" +
       httpServletRequest.getLocalPort() +
       "/login";

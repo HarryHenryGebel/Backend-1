@@ -19,6 +19,27 @@ public class UserMinimum {
   private String primaryEmail;
 
   /**
+   * The user's preferred name
+   */
+  private String name;
+
+  /**
+   * Return the user's preferred name
+   * @return The user's preferred name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Set the user's preferred name
+   * @param name The user's preferred name
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
    * Return username - username is synonymous with email, so return email
    * @return the user's email, which functions as their email
    */

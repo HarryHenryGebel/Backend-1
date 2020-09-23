@@ -119,6 +119,7 @@ public class ItemController {
     @RequestBody Item updateItem,
     @PathVariable long itemId
   ) {
+    updateItem.setUser(helperFunctions.getCurrentUser());
     itemService.update(updateItem, itemId);
     return new ResponseEntity<>(HttpStatus.OK);
   }

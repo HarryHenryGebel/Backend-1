@@ -15,13 +15,16 @@ public class UserModelApplication {
   /**
    * Connect to the system environment where environment variables live.
    */
-  @Autowired
-  private static Environment env;
+  private final Environment env;
 
   /**
    * If an environment variable is not found, set this to true
    */
   private static boolean stop = false;
+
+  public UserModelApplication(Environment env) {
+    this.env = env;
+  }
 
   /**
    * If an application relies on an environment variable, check to make sure that environment variable is available!

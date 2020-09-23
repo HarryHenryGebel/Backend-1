@@ -111,7 +111,7 @@ public class ItemServiceImpl implements ItemService {
   public Item update(Item item, long itemId) {
     // Get the current item object from the database
     Item currentItem = findItemById(itemId);
-
+    currentItem.setUser(helperFunctions.getCurrentUser());
     // Check if the current user is authorized to make the change
     if (
       helperFunctions.isAuthorizedToMakeChange(item.getUser().getUsername())

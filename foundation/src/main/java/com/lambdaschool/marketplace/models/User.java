@@ -3,22 +3,21 @@ package com.lambdaschool.marketplace.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * The entity allowing interaction with the users table
  */
 @Entity
 @Table(name = "users")
-@JsonIgnoreProperties(value = {"roles", "userEmails", "username"})
+@JsonIgnoreProperties(value = { "roles", "userEmails", "username" })
 public class User extends Auditable {
   /**
    * The primary key (long) of the users table.

@@ -15,7 +15,7 @@
     - [`POST /login` - Authenticate user](#-post--login----authenticate-user)
     - [`GET /logout` and `GET /oauth/revoke-token` - log current user out from system](#-get--logout--and--get--oauth-revoke-token----log-current-user-out-from-system)
   - [Miscellaneous endpoints](#miscellaneous-endpoints)
-    - [`GET /markets` - Retrieve all markets](#-get--markets----retrieve-all-markets)
+    - [`GET /markets` - Retrieve all markets](#get-markets)
     - [`GET /products` - Retrieve all items](#-get--products----retrieve-all-items)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>

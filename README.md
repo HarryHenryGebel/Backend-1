@@ -4,7 +4,7 @@
 
 - [Track Team 730 African Marketplace API documentation](#track-team-730-african-marketplace-api-documentation)
   - [Item related endpoints](#item-related-endpoints)
-    - [`POST /item` - Add a new item](#-post--item----add-a-new-item)
+    - [`POST /item` - Add a new item](#add-a-new-item)
     - [`DELETE /item/{itemId}` - Delete an item](#-delete--item--itemid-----delete-an-item)
     - [`GET /item/{itemId}` - Retrieve an item](#-get--item--itemid-----retrieve-an-item)
     - [`PATCH /item/{itemId}` - Update an item](#-patch--item--itemid-----update-an-item)

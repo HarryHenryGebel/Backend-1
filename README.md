@@ -127,13 +127,12 @@ Data:
     },
     "product": {
       "name": "string",
-      "productId": productId,
-      }
+      "productId": productId
     },
     "user": {
       "name": "string",
       "primaryEmail": "example-user@example-domain.com",
-      "userId": userId,
+      "userId": userId
     }
   }
 ]
@@ -162,13 +161,12 @@ Data:
     },
     "product": {
       "name": "string",
-      "productId": productId,
-      }
+      "productId": productId
     },
     "user": {
       "name": "string",
       "primaryEmail": "example-user@example-domain.com",
-      "userId": userId,
+      "userId": userId
     }
   }
 ]

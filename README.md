@@ -13,12 +13,12 @@ Adds a new item. Request body:
   "price": 0.0,
   "user": {
     "userId": userId
-  }
+  },
   "market": {
     "marketId": marketId
   },
   "product": {
     "productId": productId
-  },
+  }
 }
 ```

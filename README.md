@@ -106,7 +106,7 @@ Data: `{}`
 
 ### `GET /items` - Retrieve all items
 
-Retrieves all itemn.
+Retrieves all items.
 
 **Returns**
 
@@ -233,3 +233,47 @@ Logs the current user out from the system
 HTTP Status: `200 OK`
 
 Data: `{}`
+
+## Miscellaneous endpoints
+
+### `GET /markets` - Retrieve all markets
+
+Retrieves all markets.
+
+**Returns**
+
+HTTP Status: `200 OK`
+
+Data:
+
+```json
+[
+  {
+    "marketId": marketId,
+    "name": "Market city, market country"
+  }
+]
+```
+
+### `GET /products` - Retrieve all items
+
+Retrieves all products.
+
+**Returns**
+
+HTTP Status: `200 OK`
+
+Data:
+
+```json
+[
+  {
+    "product_id": productId,
+    "product_name": "Product name",
+    "subcategory_id": subcategory_id,
+    "subcategory_name": "Subcategory name",
+    "category_id": category_id,
+    "category_name": "Category name"
+  }
+]
+```

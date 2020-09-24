@@ -171,3 +171,65 @@ Data:
   }
 ]
 ```
+
+## Authentication related endpoints
+
+### `POST /login` - Create and authenticate a new user
+
+Creates and authenticates a new user and returns an authentication token.
+
+**Request Body**
+
+```json
+{
+  "primaryEmail": primaryEmail,
+  "password": "user's password",
+  "name": "optional name user would like to me known as"
+}
+```
+
+**Returns**
+
+HTTP Status: `201 Created`
+
+HTTP Header:
+`token: token`
+
+### `POST /login` - Authenticate user
+
+Authenticates the user and returns an authentication token.
+
+**Request URL**
+
+```
+https://african-marketplace-730/login?grant_type=password&username=${primaryEmail}&password=${password}
+```
+
+**Request Headers**
+
+```
+Authorization: Basic {btoa encoded {CLIENT_ID}:btoa encoded {CLIENT_SECRET}}
+Content-Type: application/x-www-form-urlencoded
+```
+
+**Returns**
+
+HTTP Status: `200 OK`
+
+Data:
+
+```json
+{
+  "access_token": token
+}
+```
+
+### `POST /logout` and `POST /oauth/revoke-token` - log current user out from system
+
+Logs the current user out from the system
+
+**Returns**
+
+HTTP Status: `200 OK`
+
+Data: `{}`

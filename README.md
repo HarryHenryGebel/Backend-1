@@ -174,7 +174,7 @@ Data:
 
 ## Authentication related endpoints
 
-### `POST /login` - Create and authenticate a new user
+### `POST /createnewuser` - Create and authenticate a new user
 
 Creates and authenticates a new user and returns an authentication token.
 
@@ -224,7 +224,7 @@ Data:
 }
 ```
 
-### `POST /logout` and `POST /oauth/revoke-token` - log current user out from system
+### `GET /logout` and `GET /oauth/revoke-token` - log current user out from system
 
 Logs the current user out from the system
 

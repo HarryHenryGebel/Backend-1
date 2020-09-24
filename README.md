@@ -26,7 +26,9 @@ Adds a new item.
 ```
 
 **Returns**
+
 HTTP Status: `201 Created`
+
 Data: `{}`
 
 ### `DELETE /item/{itemId}` - Delete a specific item
@@ -34,7 +36,9 @@ Data: `{}`
 Deletes item with id `{itemId}`
 
 **Returns**
+
 HTTP Status: `200 OK`
+
 Data: `{}`
 
 ### `GET /item/{itemId}` - Return a specific item
@@ -42,7 +46,9 @@ Data: `{}`
 Retrieves item with id `{itemId}`.
 
 **Returns**
+
 HTTP Status: `200 OK`
+
 Data:
 
 ```json
@@ -93,5 +99,7 @@ request body.
 ```
 
 **Returns**
+
 HTTP Status: `200 OK`
+
 Data: `{}`

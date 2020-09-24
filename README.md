@@ -5,18 +5,18 @@
 - [Track Team 730 African Marketplace API documentation](#track-team-730-african-marketplace-api-documentation)
   - [Item related endpoints](#item-related-endpoints)
     - [`POST /item` - Add a new item](#post-item---add-a-new-item)
-    - [`DELETE /item/{itemId}` - Delete an item](#-delete--item--itemid-----delete-an-item)
-    - [`GET /item/{itemId}` - Retrieve an item](#-get--item--itemid-----retrieve-an-item)
-    - [`PATCH /item/{itemId}` - Update an item](#-patch--item--itemid-----update-an-item)
-    - [`GET /items` - Retrieve all items](#-get--items----retrieve-all-items)
-    - [`GET /user/items` - Retrieve all items](#-get--user-items----retrieve-all-items)
+    - [`DELETE /item/{itemId}` - Delete an item](#delete-item-itemid---delete-an-item)
+    - [`GET /item/{itemId}` - Retrieve an item](#get-item-itemid---retrieve-an-item)
+    - [`PATCH /item/{itemId}` - Update an item](#patch-item-itemid---update-an-item)
+    - [`GET /items` - Retrieve all items](#get-items---retrieve-all-items)
+    - [`GET /user/items` - Retrieve all items](#get-user-items---retrieve-all-items)
   - [Authentication related endpoints](#authentication-related-endpoints)
-    - [`POST /createnewuser` - Create and authenticate a new user](#-post--createnewuser----create-and-authenticate-a-new-user)
-    - [`POST /login` - Authenticate user](#-post--login----authenticate-user)
-    - [`GET /logout` and `GET /oauth/revoke-token` - log current user out from system](#-get--logout--and--get--oauth-revoke-token----log-current-user-out-from-system)
+    - [`POST /createnewuser` - Create and authenticate a new user](#post-createnewuser---create-and-authenticate-a-new-user)
+    - [`POST /login` - Authenticate user](#post-login---authenticate-user)
+    - [`GET /logout` and `GET /oauth/revoke-token` - log current user out from system](#get-logout-and-get-oauth-revoke-token---log-current-user-out-from-system)
   - [Miscellaneous endpoints](#miscellaneous-endpoints)
-    - [`GET /markets` - Retrieve all markets](#get--markets)
-    - [`GET /products` - Retrieve all items](#get--products---retrieve-all-items)
+    - [`GET /markets` - Retrieve all markets](#get-markets---retrieve-all-markets)
+    - [`GET /products` - Retrieve all items](#get-products---retrieve-all-products)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -275,7 +275,7 @@ Data:
 ]
 ```
 
-### `GET /products` - Retrieve all items
+### `GET /products` - Retrieve all products
 
 Retrieves all products.
 

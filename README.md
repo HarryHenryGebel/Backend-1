@@ -13,7 +13,7 @@
   - [Authentication related endpoints](#authentication-related-endpoints)
     - [`POST /createnewuser` - Create and authenticate a new user](#post-createnewuser---create-and-authenticate-a-new-user)
     - [`POST /login` - Authenticate user](#post-login---authenticate-user)
-    - [`GET /logout` and `GET /oauth/revoke-token` - log current user out from system](#get-logout-and-get-oauthrevoketoken---log-current-user-out-from-system)
+    - [`GET /logout` and `GET /oauth/revoke-token` - log current user out from system](#get-logout-and-get-oauthrevoke-token---log-current-user-out-from-system)
   - [Miscellaneous endpoints](#miscellaneous-endpoints)
     - [`GET /markets` - Retrieve all markets](#get-markets---retrieve-all-markets)
     - [`GET /products` - Retrieve all items](#get-products---retrieve-all-products)

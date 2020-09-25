@@ -4,10 +4,11 @@ import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Category;
 import com.lambdaschool.marketplace.models.Subcategory;
 import com.lambdaschool.marketplace.repository.CategoryRepository;
-import java.util.HashSet;
-import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Transactional
 @Service(value = "categoryService")
@@ -86,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
     categoryRepository
       .findById(categoryId)
       .orElseThrow(
-        () -> new RuntimeException("Category ID " + categoryId + " not found!")
+        () -> new ResourceNotFoundException("Category ID " + categoryId + " not found!")
       );
     categoryRepository.deleteById(categoryId);
   }

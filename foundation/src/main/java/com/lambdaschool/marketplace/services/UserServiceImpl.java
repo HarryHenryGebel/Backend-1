@@ -1,18 +1,19 @@
 package com.lambdaschool.marketplace.services;
 
-import static com.lambdaschool.marketplace.Utility.optionallyReplace;
-
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Role;
 import com.lambdaschool.marketplace.models.User;
 import com.lambdaschool.marketplace.models.UserEmail;
 import com.lambdaschool.marketplace.models.UserRole;
 import com.lambdaschool.marketplace.repository.UserRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import static com.lambdaschool.marketplace.Utility.optionallyReplace;
 
 /**
  * Implements UserService Interface
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User findByName(String name) {
-    User uu = userRepository.findByPrimaryEmail(name.toLowerCase());
+    User uu = userRepository.findByName(name.toLowerCase());
     if (uu == null) {
       throw new ResourceNotFoundException("User name " + name + " not found!");
     }

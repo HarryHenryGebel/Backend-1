@@ -3,11 +3,11 @@ package com.lambdaschool.marketplace.services;
 import com.lambdaschool.marketplace.exceptions.ResourceNotFoundException;
 import com.lambdaschool.marketplace.models.Item;
 import com.lambdaschool.marketplace.repository.ItemRepository;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements ItemService Interface
@@ -163,7 +163,7 @@ public class ItemServiceImpl implements ItemService {
       .findById(itemId)
       .orElseThrow(
         () ->
-          new EntityNotFoundException("Item number " + itemId + " not found!")
+          new ResourceNotFoundException("Item number " + itemId + " not found!")
       );
     // Check if the current user is authorized to make the change
     if (

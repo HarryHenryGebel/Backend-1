@@ -65,7 +65,7 @@ public class ItemController {
    */
   @GetMapping(value = "/user/items", produces = { "application/json" })
   public ResponseEntity<?> findByUserId(Authentication authentication) {
-    User currentUser = userService.findByName(authentication.getName());
+    User currentUser = helperFunctions.getCurrentUser();
     List<Item> itemList = itemService.findByUserId(currentUser.getUserId());
     return new ResponseEntity<>(itemList, HttpStatus.OK);
   }

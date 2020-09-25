@@ -101,6 +101,7 @@ public class UserServiceImpl implements UserService {
 
     newUser.setPasswordNoEncrypt(user.getPassword());
     newUser.setPrimaryEmail(user.getPrimaryEmail());
+    newUser.setName(user.getName());
 
     Set<UserRole> roles = newUser.getRoles();
     for (UserRole role : user.getRoles()) {
